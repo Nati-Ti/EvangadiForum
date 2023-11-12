@@ -1,0 +1,110 @@
+.Login{
+  /* width: 100%; */
+  display: flex;
+  align-items: center;
+  padding: 120px 0px 50px 15%;
+  /* margin: 50px; */
+}
+
+.login__form{
+  width: 40%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  /* border: 1px solid black; */
+  border-radius: 10px;
+  padding-bottom: 20px;
+  box-shadow: 5px 5px 10px 1px #00000040;
+}
+
+.login__title{
+  color: #2D358E;
+  margin: 30px 0px 10px;
+}
+
+.login__newAcc{
+  margin: 5px 0px 30px;
+  color: #656565;
+}
+
+.login__newAcc a{
+  color: #DA7000;
+}
+
+.login__inputs{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login__inputs input{
+  font-size: 14px;
+  padding: 10px;
+}
+
+.login__inputs input:focus{
+  outline: none;
+  border-bottom: 3px solid #FE8402;
+}
+
+.email__input, .pass__input{
+  width: 80%;
+  padding: 10px 5px;
+  border: 2px solid #999999;
+  border-radius: 3px;
+  margin-bottom: -10px;
+}
+
+.login__inputs button{
+  width: 150px;
+  padding: 10px 5px;
+  border: none;
+  border-radius: 3px;
+  background-color: #FE8402;
+  color: white;
+  margin: 20px 0px 15px;
+  font-size: 14px;
+}
+
+.login__inputs button:hover{
+  background-color: #DA7000;
+}
+
+.login__form a {
+  color: #DA7000;
+  margin-bottom: 70px;
+}
+
+
+.login__about{
+  width: 40%;
+  color: #656565;
+  margin-left: 40px;
+}
+
+.about__link a{
+  text-decoration: none;
+  color: #FE8402;
+}
+
+.about__title{
+  color: #2D358E;
+}
+
+.about__button{
+  width: 170px;
+  padding: 10px 5px;
+  border: none;
+  border-radius: 3px;
+  background-color: #FE8402;
+  color: white;
+  margin: 20px 0px 15px;
+}
+
+.about__button:hover{
+  background-color: #DA7000;
+}

@@ -1,0 +1,25 @@
+{
+  "name": "evangadiforum",
+  "version": "1.0.0",
+  "description": "EvangadiForum QA",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "concurrently \"npm run client\" \"nodemon server.js\"",
+    "client": "npm start --prefix client"
+  },
+  "author": "Nati-Ti",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.6.3"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
