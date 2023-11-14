@@ -34,11 +34,11 @@ let profile =
 let question = 
 `CREATE TABLE if not exists question(
   question_id int auto_increment,
-  question varchar(1000) not null,
+  question_title varchar(1000) not null,
   question_description TEXT not null,
-  question_code_base varchar(1500) not null,     
-  tags varchar(255) not null,
-  post_id varchar(255) not null,
+  question_code_base varchar(1500),     
+  tags varchar(255),
+  post_id varchar(255),
   user_id int not null,   
   PRIMARY KEY (question_id),
   FOREIGN KEY (user_id) REFERENCES registration(user_id)
@@ -48,7 +48,7 @@ let answer =
 `CREATE TABLE if not exists answer(
   answer_id int auto_increment,
   answer TEXT not null,
-  answer_code_base varchar(1500) not null,
+  answer_code_base varchar(1500),
   user_id int not null,
   question_id int not null,
   PRIMARY KEY (answer_id),

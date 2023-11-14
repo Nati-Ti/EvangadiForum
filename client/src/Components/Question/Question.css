@@ -1,17 +1,25 @@
 .Question{
   display: flex;
-  height: 85px;
+  height: 90px;
   border-bottom: 1px solid #DDDDDD;
-  padding-top: 2px;
+  padding-top: 12px;
+  margin-bottom: 10px;
 }
 
 .userInfo{
   width: 10%;
+  /* margin-top: -10px; */
+  margin-left: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -10px;
-  margin-left: 10px;
+}
+
+.userInfo__wrapper{
+  padding: 5px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .userInfo img{

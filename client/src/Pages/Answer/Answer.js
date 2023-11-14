@@ -13,7 +13,7 @@ function Answer() {
 
       
       <div className='previous__answers'>
-      <h2>Answer From The Community</h2>
+        <h2>Answer From The Community</h2>
         <AnswerComp/>
       </div>
 

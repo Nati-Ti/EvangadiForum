@@ -1,7 +1,30 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import './AskQuestion.css'
+import { UserContext } from '../../Context/UserContext';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function AskQuestion() {
+
+  const [questionForm, setQuestionForm] = useState({});
+  const [userData, setUserData] = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setQuestionForm({ ...questionForm, userId: userData.user.id, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        
+        await axios.post('http://localhost:4000/api/questions', questionForm);
+
+        navigate("/");
+    } catch (error) {
+        console.log('problem ==>', error.response.data.msg);
+    }
+  }
+
   return (
     <div className='AskQuestion'>
       <div className='askQuestion__wrapper'>
@@ -16,7 +39,7 @@ function AskQuestion() {
         </div>
 
         <div className='askYourQuestion'>
-          <form className='questionForm'>
+          <form className='questionForm' onSubmit={handleSubmit}>
             <h2>Ask a public question</h2>
             <p>Go to Question page</p>
 
@@ -24,14 +47,14 @@ function AskQuestion() {
               className="question__title"
               type="text"
               name="title"
-              // onChange={handleChange}
+              onChange={handleChange}
               placeholder="Title"/><br />
 
             <textarea
                 className="question__description"
                 type="text"
                 name="description"
-                // onChange={handleChange}
+                onChange={handleChange}
                 placeholder="Question Descripition..."/><br />
 
             <button className="question__post">Post Your Question</button>

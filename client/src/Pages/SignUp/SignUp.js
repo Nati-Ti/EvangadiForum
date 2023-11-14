@@ -10,6 +10,7 @@ const SignUp = () => {
     
     //importing global state from context
     const [userData, setUserData] = useContext(UserContext);
+    
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
