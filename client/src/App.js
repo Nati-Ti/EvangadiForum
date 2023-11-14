@@ -8,6 +8,8 @@ import Login from './Pages/Login/Login';
 import Home from './Pages/Home/Home';
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
+import AskQuestion from './Pages/AskQuestion/AskQuestion';
+import Answer from './Pages/Answer/Answer';
 
 function App() {
   const [userData, setUserData] = useContext(UserContext);
@@ -53,13 +55,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/signup" element={
-          <>
-            <Header/>
-            <SignUp/>
-            <Footer/>
-          </>
-        } />
+        
         <Route path="/login" element={
           <>
             <Header />
@@ -67,7 +63,34 @@ function App() {
             <Footer />
           </>
         } />
-        <Route path="/" element={<Home />} />
+        <Route path="/signup" element={
+          <>
+            <Header/>
+            <SignUp/>
+            <Footer/>
+          </>
+        } />
+        <Route path="/askQuestion" element={
+          <>
+            <Header />
+            <AskQuestion />
+            <Footer />
+          </>
+        } />
+        <Route path="/answer" element={
+          <>
+            <Header />
+            <Answer />
+            <Footer />
+          </>
+        } />
+        <Route path="/" element={
+          <>
+            <Header/>
+            <Home/>
+            <Footer/>
+          </>
+        } />
       </Routes>
     </Router>
   );

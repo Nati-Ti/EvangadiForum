@@ -1,0 +1,91 @@
+.AskQuestion{
+  padding: 100px 0px 0px;
+  /* display: flex; */
+  /* margin: 0px auto; */
+  width: 100%;
+}
+
+.askQuestion__wrapper{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0px auto;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.howToAsk{
+  margin-bottom: 30px;
+}
+
+.howToAsk h2{
+  margin-bottom: -5px;
+  margin-left: 40px;
+}
+
+.howToAsk ul{
+  line-height: 1.35;
+  /* font-size: 16px; */
+  margin-left: -20px;
+  color: #999999;
+}
+
+.askYourQuestion{
+  border-radius: 20px;
+  background-color: white;
+  width: 100%;
+  padding: 50px 50px 30px;  
+  margin-bottom: 50px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.questionForm{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.questionForm h2{
+  margin-bottom: 0px;
+}
+
+.question__title{
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #DDDDDD;
+  border-radius: 10px;
+  margin-bottom: -10px;
+}
+
+.question__title:focus, .question__description:focus{
+  outline: none;
+  border: 3px solid #FE8402;
+}
+
+.question__description{
+  width: 100%;
+  height: 150px;
+  padding: 12px 15px;
+  border: 2px solid #DDDDDD;
+  border-radius: 10px;
+  /* margin-bottom: -10px; */
+  resize: none;
+}
+
+.question__post{
+  width: 200px;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 5px;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: #516CF0;
+  align-self: flex-start;
+  margin-left: -15px;
+}
+
+.question__post:hover{
+  background-color: #FE8402;
+}

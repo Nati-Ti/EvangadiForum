@@ -1,3 +1,50 @@
-body{
-  background-color: #F8F8F8;
+.Home{
+  padding-top: 90px;
 }
+
+.welcome__wrapper{
+  
+  width: 65%;
+  margin: 0px auto;
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+}
+
+.welcome__wrapper button{
+  width: 200px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  height: 45px;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: #516CF0;
+}
+
+.welcome__wrapper button:hover{
+  background-color: #FE8402;
+}
+
+.welcome__wrapper button a{
+  text-decoration: none;
+  color: white;
+}
+
+.questionsAsked{
+  margin-top: 30px;
+  width: 65%;
+  margin: 0px auto;
+  margin-bottom: 250px;
+  
+}
+
+.questionsAsked h2{
+  padding-bottom: 10px;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+/* .questionsAsked a{
+  text-decoration: none;
+} */

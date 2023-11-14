@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import './SignUp.css'
@@ -40,19 +40,23 @@ const SignUp = () => {
             console.log('problem ==>', error.response.data.msg);
         }
     }
-  return (
-    <div className="SignUp">
-      <div className="signup__form">
-        <h3 className="signup__title">Join the network</h3>
-        <p className="signup__haveAcc">Already have an account?<Link to='/login'>Sign in</Link></p>
-        <form className="signup__inputForm" onSubmit={handleSubmit}>
-          <input
-              className="input__email"
-              type="text"
-              name="email"
-              onChange={handleChange}
-              placeholder="Email"
-          /><br />
+    useEffect(() => {
+        if (!userData.user) navigate('/signup');
+    }, [userData.user]);
+
+return (
+  <div className="SignUp">
+    <div className="signup__form">
+      <h3 className="signup__title">Join the network</h3>
+      <p className="signup__haveAcc">Already have an account?<Link to='/login'>Sign in</Link></p>
+      <form className="signup__inputForm" onSubmit={handleSubmit}>
+        <input
+            className="input__email"
+            type="text"
+            name="email"
+            onChange={handleChange}
+            placeholder="Email"
+        /><br />
           <div className="input__name">
           <input
               className="input__firstName"

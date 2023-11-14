@@ -1,0 +1,70 @@
+
+.Answer{
+  padding: 100px 0px;
+  width: 70%;
+  margin: 0px auto;
+}
+
+.questionAsked h4{
+  margin-bottom: -10px;
+  margin-top: -5px;
+}
+
+.previous__answers{
+  width: 100%;
+}
+
+.previous__answers h2{
+  border-bottom: 2px solid #DDDDDD;
+  padding: 7px 0px;
+  border-top: 2px solid #DDDDDD;
+}
+
+.answer__form{
+  width: 90%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  margin: 0px auto;
+  align-items: center;
+  margin-top: 50px;
+  border-radius: 20px;
+  padding: 20px 50px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.answer__form h2{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.answer__description{
+  width: 100%;
+  border: 2px solid #DDDDDD;
+  border-radius: 10px;
+  height: 150px;
+  resize: none;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.answer__description:focus{
+  outline: none;
+  border: 3px solid #FE8402;
+}
+
+.answer__post{
+  width: 200px;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 5px;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: #516CF0;
+  align-self: flex-start;
+}
+
+.answer__post:hover{
+  background-color: #FE8402;
+}

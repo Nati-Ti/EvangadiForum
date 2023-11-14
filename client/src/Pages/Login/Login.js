@@ -12,6 +12,18 @@ const Login = () => {
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
+
+		const handleSignOut = () =>{
+			setUserData({
+				token: '',
+				user: ''
+		});
+		}
+
+		const handleSignup = () => {
+			navigate('/signup');
+		};
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -42,14 +54,17 @@ const Login = () => {
 
     useEffect(() => {
         if (userData.user) navigate('/');
-    }, [userData.user, navigate]);
+				// else{
+				// 	navigate('/hello')
+				// }
+    }, [userData.user]);
 
 	return (
 		<div className='Login'>
 			<div className='login__form'>
 				<h3 className='login__title'>Login to your account</h3>
 				<p className='login__newAcc'>Don't have an account?
-						<Link to="/signup">Create a new account</Link>
+				<Link to="/signup">Create a new account</Link>
 				</p>
 				<form className='login__inputs' onSubmit={handleSubmit}>
 						{/* <label>Email: </label> */}

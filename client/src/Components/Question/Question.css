@@ -1,0 +1,48 @@
+.Question{
+  display: flex;
+  height: 85px;
+  border-bottom: 1px solid #DDDDDD;
+  padding-top: 2px;
+}
+
+.userInfo{
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -10px;
+  margin-left: 10px;
+}
+
+.userInfo img{
+  width: 90%;
+}
+
+.userInfo p{
+  margin-top: 5px;
+}
+
+.question__content{
+  margin-left: 50px;
+  text-decoration: none;
+  width: 90%;
+  color: black;
+}
+
+.question__content h3 {
+  margin-top: 0px;
+  width: 90%;
+}
+
+.question__content p {
+  width: 70%;
+  margin-top: -10px;
+  margin-left: 10px;
+  color: #999999;
+}
+
+.forwardIcon{
+  margin-top: 25px;
+  height: inherit;
+}
+

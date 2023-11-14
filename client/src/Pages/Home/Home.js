@@ -1,11 +1,13 @@
 import './Home.css'
 import React, { useContext, useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from '../../Context/UserContext';
-import Header from '../../Components/Header/Header';
+import Question from '../../Components/Question/Question';
 
-const Home = ({ logout }) => {
-    const [userData, setUserData] = useContext(UserContext);
+
+const Home = () => {
+    
+  const [userData, setUserData] = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -17,19 +19,23 @@ const Home = ({ logout }) => {
     }
 
 
-    useEffect(() => {
-        if (!userData.user) navigate("/login");
-    }, [userData.user, navigate]);
+  useEffect(() => {
+      if (!userData.user) navigate("/login");
+  }, [userData.user, navigate]);
 
-    return (
-        <div className='Home'>
-            <Header />
+  return (
+    <div className='Home'>
+      <div className='welcome__wrapper'>
+      <Link to="/askQuestion" ><button>Ask Question</button></Link>
+        <h2>Welcome: {userData.user?.display_name}</h2>
+      </div>
+      <div className='questionsAsked'>
+        <h2>Questions</h2>
 
-            <h1>WelCome {userData.user?.display_name}</h1>
-
-            <button onClick={handleLogout}>Log out</button>
-        </div>
-    )
+          <Question/>
+      </div>
+    </div>
+  )
 }
 
 export default Home
