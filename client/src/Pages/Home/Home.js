@@ -16,18 +16,14 @@ const Home = () => {
 
   useEffect(() => {
     async function fetchQuestions() {
-      try{
-        const getQuestions = await axios.get('http://localhost:4000/api/questions');
 
-        setQuestions(getQuestions.data);
-        // console.log(getQuestions.data);
-      }
-      
-      catch (error) {
-        console.log('problem ==>', error.response.data.msg);
-      }
-      
+      await axios.get('http://localhost:4000/api/questions')
+        .then((res) => {setQuestions(res.data)})
+        .catch((err) => {
+          console.log('problem ==>', err.response.data.msg);
+        });
     }
+
     fetchQuestions();
   }, []);
 
@@ -52,6 +48,7 @@ const Home = () => {
               title={ques.question_title}
               description={ques.question_description}
               userName={ques.user_name}
+              questionId={ques.question_id}
               key={ques.question_id}
               />
           )

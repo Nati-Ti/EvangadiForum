@@ -1,7 +1,7 @@
 
 const pool = require('../../config/database')
 
-const { questionPost, getAllQuestions, questionById } = require('./question.service');
+const { questionPost, getAllQuestions, questionInfo } = require('./question.service');
 
 module.exports = {
   askQuestion: (req, res) => {
@@ -27,6 +27,18 @@ module.exports = {
 
   getQuestions: (req, res) => {
     getAllQuestions((err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({msg: 'Database connection error!'});
+      }
+      return res.status(200).json({ data: results});
+    })
+  },
+
+  getQuestionInfo: (req, res) => {
+    const id = req.query.questionId;
+
+    questionInfo(id, (err, results) => {
       if (err) {
         console.log(err);
         return res.status(500).json({msg: 'Database connection error!'});

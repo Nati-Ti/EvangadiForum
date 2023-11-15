@@ -22,8 +22,8 @@ module.exports = {
     });
   },
 
-  questionById: (id, callback) => {
-    pool.query(`SELECT * FROM question LEFT JOIN profile ON question.user_id = profile.user_id WHERE question.question_id = ?`,
+  questionInfo: (id, callback) => {
+    pool.query(`SELECT * FROM question WHERE question.question_id = ?`,
     [id],
     (err, results) => {
       if(err) return callback(err);

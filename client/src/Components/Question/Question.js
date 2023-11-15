@@ -3,7 +3,7 @@ import './Question.css';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link } from 'react-router-dom';
 
-function Question({title, description, userName}) {
+function Question({title, description, questionId, userName}) {
   
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -19,7 +19,7 @@ function Question({title, description, userName}) {
       </div>
         
       
-      <Link to='/answer' className='question__content'>
+      <Link to={`/answer/answer?questId=${questionId}`} className='question__content'>
         <h3>{title}</h3>
         <p>{truncate(description, 140)}</p>
       </Link>

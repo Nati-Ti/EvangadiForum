@@ -40,58 +40,21 @@ function App() {
     }
   }
 
-  const logout = () => {
-    setUserData({
-      token: undefined,
-      user: undefined,
-    });
-    localStorage.setItem('auth-token', '');
-  };
-
   useEffect(() => {
     checkLoggedIn();
   }, []);
 
   return (
     <Router>
-      <Routes>
-        
-        <Route path="/login" element={
-          <>
-            <Header />
-            <Login />
-            <Footer />
-          </>
-        } />
-        <Route path="/signup" element={
-          <>
-            <Header/>
-            <SignUp/>
-            <Footer/>
-          </>
-        } />
-        <Route path="/askQuestion" element={
-          <>
-            <Header />
-            <AskQuestion />
-            <Footer />
-          </>
-        } />
-        <Route path="/answer" element={
-          <>
-            <Header />
-            <Answer />
-            <Footer />
-          </>
-        } />
-        <Route path="/" element={
-          <>
-            <Header/>
-            <Home/>
-            <Footer/>
-          </>
-        } />
+      <Header />
+      <Routes>     
+        <Route path="/login" element={ <Login/> } />
+        <Route path="/signup" element={ <SignUp/> } />
+        <Route path="/askQuestion" element={ <AskQuestion/> } />
+        <Route path="/answer/answer" element={ <Answer/> } />
+        <Route path="/" element={ <Home/> } />
       </Routes>
+      <Footer/>
     </Router>
   );
 }
