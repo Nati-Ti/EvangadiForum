@@ -1,5 +1,4 @@
 const {answerPost, getAnswersById} = require('./answer.service');
-// const app = require('../../../server');
 
 module.exports = {
 
@@ -38,8 +37,6 @@ module.exports = {
       }
       return res.status(200).json({ data: results });
     });
-    
-    
   }
 
 

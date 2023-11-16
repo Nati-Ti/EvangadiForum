@@ -1,6 +1,6 @@
 const {register, profile, userById, getAllUsers, getUserByEmail} = require('./user.service');
 
-const pool = require('../../config/database');
+// const pool = require('../../config/database');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -16,42 +16,35 @@ module.exports = {
       return res.status(400).json({ msg: 'Password must be at least 8 characters!' });
   
     // Check if an account with the email already exists
-    pool.query(`SELECT * FROM registration WHERE user_email = ?`, [email], (err, results) => {
+    getUserByEmail(email, (err, results) => {
       if (err) {
-        return res.status(400).json({ msg: 'Database connection error!' });
+          return res.status(400).json({ msg: 'Database c error!' });
       }
-      if (results.length > 0) {
-        return res.status(400).json({ msg: 'An account with this email already exists!' });
+      if (results) {
+          return res.status(400).json({ msg: 'An account with this email already exists!' });
       } else {
         // Changing the value of password from req.body with the encrypted password
         const salt = bcrypt.genSaltSync();
         req.body.password = bcrypt.hashSync(password, salt);
-  
+    
         register(req.body, (err, registerResults) => {
           if (err) {
             console.log(err);
-            return res.status(400).json({ msg: 'Database connection error!' });
+            return res.status(400).json({ msg: 'Database c2 error!' });
           }
-  
-          // Retrieve user_id from the database using email
-          pool.query('SELECT * FROM registration WHERE user_email = ?', [email], (err, userResults) => {
+          // req.body.userId = results[0].user_id;
+          // Adding user_id to req.body
+          req.body.userId = registerResults.user_id; // Assuming registerResults contains the inserted user ID
+    
+          // Insert data into the profile table
+          profile(req.body, (err, profileResults) => {
             if (err) {
+              console.log(err);
               return res.status(500).json({ msg: 'Database connection error!' });
             }
-  
-            // Adding user_id to req.body
-            req.body.userId = userResults[0].user_id;
-  
-            // Insert data into the profile table
-            profile(req.body, (err, profileResults) => {
-              if (err) {
-                console.log(err);
-                return res.status(500).json({ msg: 'Database connection error!' });
-              }
-              return res.status(200).json({
-                msg: 'New user added successfully',
-                data: profileResults
-              });
+            return res.status(200).json({
+              msg: 'New user added successfully',
+              data: profileResults
             });
           });
         });
@@ -70,7 +63,6 @@ module.exports = {
   },
 
   getUserById: (req, res) => {
-    //getting req.id from auth middleware
     userById(req.id, (err, results) => {
         if (err) {
             console.log(err);
@@ -87,7 +79,6 @@ module.exports = {
 
   login: (req, res) => {
 
-      //destructuring req.body
       const { email, password } = req.body;
       
       //validation

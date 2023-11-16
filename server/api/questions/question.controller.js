@@ -1,9 +1,9 @@
-
-const pool = require('../../config/database')
-
 const { questionPost, getAllQuestions, questionInfo } = require('./question.service');
 
+
 module.exports = {
+
+
   askQuestion: (req, res) => {
 
     const { title, description, userId } = req.body;
@@ -46,4 +46,6 @@ module.exports = {
       return res.status(200).json({ data: results});
     })
   }
+
+
 }
