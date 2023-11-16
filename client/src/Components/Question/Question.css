@@ -1,8 +1,8 @@
 .Question{
   display: flex;
-  height: 90px;
+  height: 82px;
   border-bottom: 1px solid #DDDDDD;
-  padding-top: 12px;
+  padding-top: 10px;
   margin-bottom: 10px;
 }
 
@@ -16,19 +16,20 @@
 }
 
 .userInfo__wrapper{
+  width: 125%;
   padding: 5px 0px 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.userInfo img{
+.userInfo__wrapper p{
+  margin-top: 0px;
+}
+/* 
+.userInfo__wrapper img{
   width: 90%;
-}
-
-.userInfo p{
-  margin-top: 5px;
-}
+} */
 
 .question__content{
   margin-left: 50px;
@@ -38,7 +39,7 @@
 }
 
 .question__content h3 {
-  margin-top: 0px;
+  margin-top: -5px;
   width: 90%;
 }
 

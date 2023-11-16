@@ -4,6 +4,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link } from 'react-router-dom';
 
 function Question({title, description, questionId, userName}) {
+  console.log(userName, questionId);
   
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;

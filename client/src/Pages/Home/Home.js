@@ -47,7 +47,7 @@ const Home = () => {
             <Question 
               title={ques.question_title}
               description={ques.question_description}
-              userName={ques.user_name}
+              userName={ques.registration.user_name}
               questionId={ques.question_id}
               key={ques.question_id}
               />

@@ -12,13 +12,22 @@
   margin-top: -15px;
 }
 
+.userInfo p{
+  margin-top: 0px;
+  /* margin-bottom: 20px; */
+}
+
 .userInfo img{
-  width: 75%;
+  width: 60%;
 }
 
 .answer__content{
   margin-left: 50px;
-  width: 90%;
+  width: 75%;
   color: #575656;
   text-decoration: none;
+}
+
+.answer__content p{
+  margin-top: -5px;
 }

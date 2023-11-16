@@ -5,6 +5,28 @@
   margin: 0px auto;
 }
 
+.questionAns__wrapper{
+  display: flex;
+  justify-content: space-between;
+}
+
+.answerButton{
+  margin-top: 10px;
+  width: 120px;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 5px;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: gray;
+  align-self: flex-start;
+}
+
+.answerButton:hover{
+  background-color: #FE8402;
+}
+
 .questionAsked h4{
   margin-bottom: -10px;
   margin-top: -5px;
@@ -32,6 +54,11 @@
   border-radius: 20px;
   padding: 20px 50px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+  
+}
+
+.answer__formHide {
+  display: none;
 }
 
 .answer__form h2{

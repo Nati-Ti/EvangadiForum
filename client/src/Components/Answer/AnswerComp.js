@@ -7,6 +7,9 @@ function AnswerComp({userName, answer}) {
   
   const [userData, setUserData] = useContext(UserContext);
 
+  function truncate(str, n) {
+    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+  }
   return (
     <div className='AnswerComp'>
       <div className='userInfo'>
@@ -16,7 +19,7 @@ function AnswerComp({userName, answer}) {
         
       
       <Link to='/answer' className='answer__content'>
-        <p>{answer}</p>
+        <p>{truncate(answer, 300)}</p>
       </Link>
     </div>
   )

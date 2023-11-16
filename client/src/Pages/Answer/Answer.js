@@ -60,7 +60,13 @@ function Answer() {
 
     axios.post('http://localhost:4000/api/answers/postAnswer', answer);
 
-    // navigate(`/answer/answer?quesId=${questionId}`);
+    navigate(`/`);
+  }
+
+  const [ display, setDisplay ] = useState(false);
+
+  const handleDisplay = () =>{
+    setDisplay(!display);
   }
 
 
@@ -68,26 +74,16 @@ function Answer() {
   return (
     <div className='Answer'>
       <div className='questionAsked'>
-        <h2>Question</h2>
+        <div className='questionAns__wrapper'>
+          <h2>Question</h2>
+          <button onClick={handleDisplay} className='answerButton'>{display ? 'Hide' : "Answer"}</button>
+        </div>
+        
         <h4>{questionInfo.data?.question_title}</h4>
         <p>{questionInfo.data?.question_description}</p>
       </div>
 
-      
-      <div className='previous__answers'>
-        <h2>Answer From The Community</h2>
-        {answers?.data?.map((ans) => {
-          return(
-            <AnswerComp 
-            answer={ans.answer}
-            userName={ans.user_name}
-            key={ans.answer_id}/>
-          )
-        })}
-        
-      </div>
-
-      <form className='answer__form' onSubmit={handleSubmit}>
+      <form className={display ? 'answer__form' : 'answer__formHide'} onSubmit={handleSubmit}>
         <h2>Answer The Top Question</h2>
         <p>Go to Question page</p>
         <textarea 
@@ -98,6 +94,20 @@ function Answer() {
             placeholder="Your Answer..."/>
         <button className='answer__post'>Post Your Answer</button>
       </form>
+      
+      <div className='previous__answers'>
+        <h2>Answer From The Community</h2>
+        {answers?.data?.map((ans) => {
+          return(
+            <AnswerComp 
+            answer={ans.answer}
+            userName={ans.registration.user_name}
+            key={ans.answer_id}/>
+          )
+        })}
+      </div>
+
+
     </div>
   )
 }
