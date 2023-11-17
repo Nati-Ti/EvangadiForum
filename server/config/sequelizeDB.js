@@ -37,7 +37,7 @@ const registration = sequelize.define('registration', {
   user_password: {
     type: DataTypes.STRING,
     allowNull: false,
-  },
+  }
 }, {
   tableName: 'registration',
 });
@@ -75,15 +75,23 @@ const question = sequelize.define('question', {
     primaryKey: true,
   },
   question_title: {
-    type: DataTypes.STRING(1000),
+    type: DataTypes.STRING(500),
     allowNull: false,
   },
   question_description: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+  upvotes: {
+    type: DataTypes.JSON,
+    defaultValue: [],
+  },
+  downvotes: {
+    type: DataTypes.JSON,
+    defaultValue: [],
+  },
   question_code_base: {
-    type: DataTypes.STRING(1500),
+    type: DataTypes.TEXT,
   },
   tags: {
     type: DataTypes.STRING(255),
@@ -113,8 +121,16 @@ const answer = sequelize.define('answer', {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+  upvotes: {
+    type: DataTypes.JSON,
+    defaultValue: [],
+  },
+  downvotes: {
+    type: DataTypes.JSON,
+    defaultValue: [],
+  },
   answer_code_base: {
-    type: DataTypes.STRING(1500),
+    type: DataTypes.TEXT,
   },
   user_id: {
     type: DataTypes.INTEGER,
@@ -135,8 +151,34 @@ const answer = sequelize.define('answer', {
 }, {
   tableName: 'answer',
 });
-  
 
+const bookmark = sequelize.define('bookmark', {
+  bookmark_id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: registration,
+      key: 'user_id',
+    },
+  },
+  question_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: question,
+      key: 'question_id',
+    },
+  },
+},{
+  tableName: 'bookmark',
+});
+  
+  
   // explicitly configuring associations using Sequelize's association methods allows for more flexibility and control over how associations are handled.
   profile.belongsTo(registration, { foreignKey: 'user_id' });
   registration.hasOne(profile, { foreignKey: 'user_id' });
@@ -149,6 +191,10 @@ const answer = sequelize.define('answer', {
 
   answer.belongsTo(question, { foreignKey: 'question_id' });
   question.hasMany(answer, { foreignKey: 'question_id' });
+
+  profile.belongsToMany(question, { through: 'bookmark', foreignKey: 'user_id' });
+  question.belongsToMany(profile, { through: 'bookmark', foreignKey: 'question_id' });
+
   
 
   // Sync the models with the database
@@ -160,12 +206,12 @@ sequelize.sync({ force: false })
 });
 
 
-
 module.exports = {
   sequelize,
   registration,
   profile,
   question,
   answer,
+  bookmark
 };
 

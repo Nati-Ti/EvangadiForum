@@ -48,3 +48,11 @@
 .content__wrapper p:hover{
   color: #FE8402 ;
 }
+
+.user__profile{
+  margin: 0px 30px 0px 10px;
+}
+
+.user__profile img{
+  width: 60px;
+}

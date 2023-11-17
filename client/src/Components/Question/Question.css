@@ -32,9 +32,9 @@
 } */
 
 .question__content{
-  margin-left: 50px;
+  /* margin-left: 50px; */
   text-decoration: none;
-  width: 90%;
+  width: 80%;
   color: black;
 }
 
@@ -55,3 +55,44 @@
   height: inherit;
 }
 
+/* .thumbIcon{
+  color: yellowgreen;
+  transform: rotate(90deg);
+} */
+
+.reaction__vote{
+  max-height: 95%;
+  width: 7%;
+  margin: -5px 15px 0px -10px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.upVote{
+  transform: rotate(90deg);
+  color: #999999;
+}
+
+.reaction__count{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin: -3px 0px 0px;
+  color: #2D358E;
+}
+
+.downVote{
+  transform: rotate(-90deg);
+  color: #999999;
+}
+
+.upVote:hover, .downVote:hover {
+  color: #2D358E;
+}
+
+.lockedVote{
+  color: #2D358E;
+}

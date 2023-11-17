@@ -1,5 +1,6 @@
 .Home{
   padding-top: 90px;
+  min-height: 75vh;
 }
 
 .welcome__wrapper{

@@ -36,6 +36,19 @@ module.exports = {
         callback(err);
       });
   },
+
+  getQuestionsById: (id, callback) => {
+    question.findAll({
+      where: { user_id: id },
+      order: [['createdAt', 'DESC']]
+    })
+    .then(results => {
+      callback(null, results);
+    })
+    .catch(err => {
+      callback(err);
+    });
+  },
   
   questionInfo: (id, callback) => {
     question.findByPk(id)
@@ -45,7 +58,36 @@ module.exports = {
       .catch(err => {
         callback(err);
       });
-  }
+  },
+
+  upVote:(id, callback) => {
+    question.update({
+      upvotes: sequelize.literal(`upvotes || ARRAY[${id}]`),
+    })
+    .then(results => {
+      callback(null, results);
+    })
+    .catch(err => {
+      callback(err);
+    });
+  },
+
+  downVote:(id, callback) => {
+    question.update({
+      downvotes: sequelize.literal(`downvotes || ARRAY[${id}]`),
+    })
+    .then(results => {
+      callback(null, results);
+    })
+    .catch(err => {
+      callback(err);
+    });
+  },
+
+
+
+
+
 
 
 

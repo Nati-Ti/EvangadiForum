@@ -1,25 +1,25 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Header.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { UserContext } from '../../Context/UserContext';
+import Menu from '../Menu/Menu';
 
 function Header() {
   const [userData, setUserData] = useContext(UserContext);
 
-    const navigate = useNavigate();
 
-    const handleLogout = () => {
-      setUserData({
-          token: '',
-          user: ''
-      });
+    const [ menuDropdown, setMenuDropdown ] = useState(false);
 
-      localStorage.removeItem('auth-token');
-    };
+    const handleDropdown = () => {
+      setMenuDropdown(true);
+    }
+    const hideDropdown = () => {
+      setMenuDropdown(false);
+    }
 
     useEffect(() => {
-        if (!userData.user) navigate("/login");
-    }, [userData.user, navigate]);
+      setMenuDropdown(false);
+    },[userData]);
 
   return (
     <div className='Header'>
@@ -32,7 +32,17 @@ function Header() {
         <div className='content__wrapper'>
           <p>Home</p>
           <p>How it Works</p>
-          <button onClick={ handleLogout}>{userData.user ? 'LogOut' : 'SIGN IN'}</button>
+          {!userData.user ? 
+          <button>SIGN IN</button>
+          :  
+          <div className='user__profile'
+          onMouseEnter={handleDropdown}
+          onMouseLeave={hideDropdown}
+          >
+            <img src='https://static.vecteezy.com/system/resources/previews/010/056/184/original/people-icon-sign-symbol-design-free-png.png' alt='profile icon' />
+            {menuDropdown && <Menu/>}
+          </div>
+          }
         </div>
       </div>
     </div>

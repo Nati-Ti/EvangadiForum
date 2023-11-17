@@ -3,7 +3,9 @@
   /* display: flex; */
   /* margin: 0px auto; */
   width: 100%;
+  flex: 1;
 }
+
 
 .askQuestion__wrapper{
   display: flex;
@@ -14,9 +16,9 @@
   align-items: center;
 }
 
-.howToAsk{
-  margin-bottom: 30px;
-}
+/* .howToAsk{
+  margin-bottom: 30px; 
+} */
 
 .howToAsk h2{
   margin-bottom: -5px;

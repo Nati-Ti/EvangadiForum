@@ -1,4 +1,4 @@
-const { questionPost, getAllQuestions, questionInfo } = require('./question.service');
+const { questionPost, getAllQuestions, getQuestionsById, questionInfo, upVote, downVote } = require('./question.service');
 
 
 module.exports = {
@@ -39,6 +39,41 @@ module.exports = {
     const id = req.query.questionId;
 
     questionInfo(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({msg: 'Database connection error!'});
+      }
+      return res.status(200).json({ data: results});
+    })
+  },
+
+  getMyQuestions: (req, res) => {
+    const id = req.query.userId;
+    getQuestionsById(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({msg: 'Database connection error!'});
+      }
+      return res.status(200).json({ data: results});
+    })
+  },
+
+  setUpVote: (req, res) => {
+    const id = req.query.userId;
+
+    upVote(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({msg: 'Database connection error!'});
+      }
+      return res.status(200).json({ data: results});
+    })
+  },
+
+  setDownVote: (req, res) => {
+    const id = req.query.userId;
+
+    downVote(id, (err, results) => {
       if (err) {
         console.log(err);
         return res.status(500).json({msg: 'Database connection error!'});
