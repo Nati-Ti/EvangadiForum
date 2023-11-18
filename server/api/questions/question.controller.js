@@ -1,3 +1,4 @@
+const { question } = require('../../config/sequelizeDB');
 const { questionPost, getAllQuestions, getQuestionsById, questionInfo, upVote, downVote } = require('./question.service');
 
 
@@ -58,29 +59,66 @@ module.exports = {
     })
   },
 
-  setUpVote: (req, res) => {
-    const id = req.query.userId;
-
-    upVote(id, (err, results) => {
-      if (err) {
+  setVote: (req, res) => {
+    const type = req.query.type;
+    const { userId, questionId } = req.body;
+  
+    if (!userId || !questionId) {
+      return res.status(400).json({ msg: 'The userId and questionId fields are necessary!' });
+    }else{
+      question.findOne({
+        where: { question_id: questionId }
+      })
+      .then((quest) => {
+        if ((type === 'up' && quest.upvotes.includes(userId)) || (type === 'down' && quest.downvotes.includes(userId))) {
+          const count = quest.upvotes.length - quest.downvotes.length;
+          return res.status(200).json({ count });
+        }else{
+          if (type === 'up') {
+            upVote(req.body, (err, results) => {
+              if (err) {
+                console.log(err);
+                return res.status(500).json({ msg: 'Database connection error!' });
+              }
+              const count = (results && results.upvotes && results.downvotes)
+                ? results.upvotes.length - results.downvotes.length
+                : 0;
+              return res.status(200).json({ count });
+            });
+          }
+        
+          if (type === 'down') {
+            question.findOne({
+              where: { question_id: questionId }
+            })
+            .then((quest) => {
+              if (quest.upvotes.length <= quest.downvotes.length) {
+                return res.status(200).json({ count: 0 });
+              } else {
+                downVote(req.body, (err, results) => {
+                  if (err) {
+                    console.log(err);
+                    return res.status(500).json({ msg: 'Database connection error!' });
+                  }
+                  const count = (results && results.upvotes && results.downvotes)
+                    ? results.upvotes.length - results.downvotes.length
+                    : 0;
+                  return res.status(200).json({ count });
+                });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              return res.status(500).json({ msg: 'Database connection error!' });
+            });
+          }
+        }
+      })
+      .catch((err) => {
         console.log(err);
-        return res.status(500).json({msg: 'Database connection error!'});
-      }
-      return res.status(200).json({ data: results});
-    })
+        return res.status(500).json({ msg: 'Database connection error!' });
+      });
+    }
   },
-
-  setDownVote: (req, res) => {
-    const id = req.query.userId;
-
-    downVote(id, (err, results) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({msg: 'Database connection error!'});
-      }
-      return res.status(200).json({ data: results});
-    })
-  }
-
-
+  
 }

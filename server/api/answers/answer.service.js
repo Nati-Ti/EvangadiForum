@@ -32,7 +32,133 @@ module.exports = {
       .catch(err => {
         callback(err);
       });
+  },
+
+  upVote: (data, callback) => {
+    const id = data.userId;
+    answer.findOne({
+      where: { answer_id: data.answerId }
+    })
+    .then((answerInstance) => {
+
+      if (answerInstance) {
+        if (answerInstance.downvotes.includes(id)) {
+          const newDownvotes = answerInstance.downvotes.filter(downvoteId => downvoteId !== id);
+          answerInstance.update({
+            downvotes: newDownvotes
+          })
+          .then(updatedAnswer => {
+            
+            const newUpvotes = updatedAnswer.upvotes.concat([id]);
+            updatedAnswer.update({
+              upvotes: newUpvotes
+            })
+            .then(finalUpdatedAnswer => {
+              callback(null, finalUpdatedAnswer);
+            })
+            .catch(err => {
+              callback(err);
+            });
+          })
+          .catch(err => {
+            callback(err);
+          });
+
+        } else {
+          
+          const newUpvotes = answerInstance.upvotes.concat([id]);
+          answerInstance.update({
+            upvotes: newUpvotes
+          })
+          .then(updatedAnswer => {
+            callback(null, updatedAnswer);
+          })
+          .catch(err => {
+            callback(err);
+          });
+        }
+      } else {
+        callback({ error: 'Answer not found' });
+      }
+    })
+    .catch(err => {
+      callback(err);
+    });
+  },
+
+  downVote: (data, callback) => {
+    const id = data.userId;
+    answer.findOne({
+      where: { answer_id: data.answerId }
+    })
+    .then((answerInstance) => {
+
+      if (answerInstance) {
+        if (answerInstance.upvotes.includes(id)) {
+          const newUpvotes = answerInstance.upvotes.filter(upvoteId => upvoteId !== id);
+          answerInstance.update({
+            upvotes: newUpvotes
+          })
+          .then(updatedAnswer => {
+            
+            const newDownvotes = updatedAnswer.downvotes.concat([id]);
+            updatedAnswer.update({
+              downvotes: newDownvotes
+            })
+            .then(finalUpdatedAnswer => {
+              callback(null, finalUpdatedAnswer);
+            })
+            .catch(err => {
+              callback(err);
+            });
+          })
+          .catch(err => {
+            callback(err);
+          });
+
+        } else {
+          
+          const newDownvotes = answerInstance.downvotes.concat([id]);
+          answerInstance.update({
+            downvotes: newDownvotes
+          })
+          .then(updatedAnswer => {
+            callback(null, updatedAnswer);
+          })
+          .catch(err => {
+            callback(err);
+          });
+        }
+      } else {
+        callback({ error: 'Answer not found' });
+      }
+    })
+    .catch(err => {
+      callback(err);
+    });
+  },
+
+  numOfAns: (id, callback) => {
+    answer.count({
+      where: { question_id: id }
+    })
+    .then(results => {
+      callback(null, results);
+    })
+    .catch(err => {
+      callback(err);
+    });
   }
+
+
+
+
+
+
+
+
+
+
 
 
   // // using raw sql query below

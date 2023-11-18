@@ -1,0 +1,62 @@
+
+.reaction__vote{
+  max-height: 95%;
+  width: 7%;
+  margin: -5px 15px 0px -10px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.upVote{
+  transform: rotate(90deg);
+  color: #999999;
+}
+
+.reaction__count{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin: -3px 0px 0px;
+  color: #2D358E;
+}
+
+.downVote{
+  transform: rotate(-90deg);
+  color: #999999;
+}
+
+.upVote:hover, .downVote:hover {
+  color: #2D358E;
+}
+
+.lockedVote{
+  color: #2D358E;
+}
+
+/* for the triangle style */
+
+.reaction__wrapper2{
+  display: flex;
+}
+.upVote2{
+  margin: 15px 0px 0px 0px;
+}
+.downVote2{
+  margin: 15px 0px 0px 0px;
+}
+.reaction__count2{
+  margin: -10px -10px 38px -15px;
+}
+/* 
+.upVote2{
+  margin: 0px 0px 15px 0px;
+}
+.downVote2{
+  margin: 0px 0px 15px 0px;
+}
+.reaction__count2{
+  margin: 0px -10px -10px -15px;
+} */

@@ -4,6 +4,7 @@ import AnswerComp from '../../Components/Answer/AnswerComp'
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../../Context/UserContext';
+import Vote from '../../Components/Vote/Vote';
 
 function Answer() {
 
@@ -26,10 +27,11 @@ function Answer() {
         .catch((err) => {
           console.log('problem ==>', err.response.data.msg);
         });
+      
     }
 
     fetchQuestionInfo();
-  }, []);
+  }, [questionId]);
 
   useEffect(() => {
 
@@ -70,17 +72,29 @@ function Answer() {
   }
 
 
-
   return (
     <div className='Answer'>
       <div className='questionAsked'>
         <div className='questionAns__wrapper'>
+          
           <h2>Question</h2>
+          
           <button onClick={handleDisplay} className='answerButton'>{display ? 'Hide' : "Answer"}</button>
         </div>
-        
-        <h4>{questionInfo.data?.question_title}</h4>
-        <p>{questionInfo.data?.question_description}</p>
+        <div className='voteQuestion__wrapper'>
+          <Vote 
+            style='triangle'
+            route='questions'
+            instanceId={questionId}
+            upvotes={questionInfo.data?.upvotes}
+            downvotes={questionInfo.data?.downvotes}
+          />  
+          <div className='questionTitleDescr'>
+            <h4>{questionInfo.data?.question_title}</h4>
+            <p>{questionInfo.data?.question_description}</p>
+          </div>
+          
+        </div>
       </div>
 
       <form className={display ? 'answer__form' : 'answer__formHide'} onSubmit={handleSubmit}>
@@ -101,6 +115,9 @@ function Answer() {
           return(
             <AnswerComp 
             answer={ans.answer}
+            answerId={ans.answer_id}
+            upvotes={ans.upvotes}
+            downvotes={ans.downvotes}
             userName={ans.registration.user_name}
             key={ans.answer_id}/>
           )

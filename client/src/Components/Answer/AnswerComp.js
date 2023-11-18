@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from 'react'
+import React from 'react'
 import './AnswerComp.css'
 import { Link } from 'react-router-dom';
-import { UserContext } from '../../Context/UserContext';
+import Vote from '../Vote/Vote';
 
-function AnswerComp({userName, answer}) {
+function AnswerComp({userName, answer, answerId, upvotes, downvotes}) {
   
-  const [userData, setUserData] = useContext(UserContext);
+  
 
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -16,7 +16,14 @@ function AnswerComp({userName, answer}) {
         <img src='https://static.vecteezy.com/system/resources/previews/010/056/184/original/people-icon-sign-symbol-design-free-png.png' alt='profile icon' />
         <p>{userName}</p>
       </div>
-        
+      
+      <div className='voteWrapper'>
+        <Vote
+        route='answers' 
+        instanceId={answerId}
+        upvotes={upvotes}
+        downvotes={downvotes} />
+      </div>
       
       <Link to='/answer' className='answer__content'>
         <p>{truncate(answer, 300)}</p>

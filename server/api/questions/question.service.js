@@ -1,5 +1,6 @@
 // const pool = require('../../config/database');
 const { registration, question } = require('../../config/sequelizeDB');
+const { sequelize } = require('../../config/sequelizeDB');
 
 
 
@@ -60,30 +61,109 @@ module.exports = {
       });
   },
 
-  upVote:(id, callback) => {
-    question.update({
-      upvotes: sequelize.literal(`upvotes || ARRAY[${id}]`),
+  upVote: (data, callback) => {
+    const id = data.userId;
+    question.findOne({
+      where: { question_id: data.questionId }
     })
-    .then(results => {
-      callback(null, results);
+    .then((questionInstance) => {
+
+      if (questionInstance) {
+        if (questionInstance.downvotes.includes(id)) {
+          const newDownvotes = questionInstance.downvotes.filter(downvoteId => downvoteId !== id);
+          questionInstance.update({
+            downvotes: newDownvotes
+          })
+          .then(updatedQuestion => {
+            
+            const newUpvotes = updatedQuestion.upvotes.concat([id]);
+            updatedQuestion.update({
+              upvotes: newUpvotes
+            })
+            .then(finalUpdatedQuestion => {
+              callback(null, finalUpdatedQuestion);
+            })
+            .catch(err => {
+              callback(err);
+            });
+          })
+          .catch(err => {
+            callback(err);
+          });
+
+        } else {
+          
+          const newUpvotes = questionInstance.upvotes.concat([id]);
+          questionInstance.update({
+            upvotes: newUpvotes
+          })
+          .then(updatedQuestion => {
+            callback(null, updatedQuestion);
+          })
+          .catch(err => {
+            callback(err);
+          });
+        }
+      } else {
+        callback({ error: 'Question not found' });
+      }
     })
     .catch(err => {
       callback(err);
     });
   },
 
-  downVote:(id, callback) => {
-    question.update({
-      downvotes: sequelize.literal(`downvotes || ARRAY[${id}]`),
+  downVote: (data, callback) => {
+    const id = data.userId;
+    question.findOne({
+      where: { question_id: data.questionId }
     })
-    .then(results => {
-      callback(null, results);
+    .then((questionInstance) => {
+
+      if (questionInstance) {
+        if (questionInstance.upvotes.includes(id)) {
+          const newUpvotes = questionInstance.upvotes.filter(upvoteId => upvoteId !== id);
+          questionInstance.update({
+            upvotes: newUpvotes
+          })
+          .then(updatedQuestion => {
+            
+            const newDownvotes = updatedQuestion.downvotes.concat([id]);
+            updatedQuestion.update({
+              downvotes: newDownvotes
+            })
+            .then(finalUpdatedQuestion => {
+              callback(null, finalUpdatedQuestion);
+            })
+            .catch(err => {
+              callback(err);
+            });
+          })
+          .catch(err => {
+            callback(err);
+          });
+
+        } else {
+          
+          const newDownvotes = questionInstance.downvotes.concat([id]);
+          questionInstance.update({
+            downvotes: newDownvotes
+          })
+          .then(updatedQuestion => {
+            callback(null, updatedQuestion);
+          })
+          .catch(err => {
+            callback(err);
+          });
+        }
+      } else {
+        callback({ error: 'Question not found' });
+      }
     })
     .catch(err => {
       callback(err);
     });
   },
-
 
 
 

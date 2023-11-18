@@ -45,13 +45,13 @@ const Home = () => {
         {questions?.data?.map((ques) => {
           return(
             <Question 
-              fetchQuestions={fetchQuestions}
+              // fetchQuestions={fetchQuestions}
               title={ques.question_title}
               description={ques.question_description}
               userName={ques.registration.user_name}
               questionId={ques.question_id}
-              upVote={ques.upvotes}
-              downVote={ques.downVotes}
+              upvotes={ques.upvotes}
+              downVotes={ques.downVotes}
               key={ques.question_id}
               />
           )

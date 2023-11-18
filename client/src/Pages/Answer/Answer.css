@@ -7,8 +7,25 @@
 }
 
 .questionAns__wrapper{
+  width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+.questionAsked p, .questionAsked h4{
+  width: 85%;
+}
+
+.questionAsked {
+  margin-bottom: -15px;
+}
+
+.questionTitleDescr{
+  margin-left: 10px;
+}
+
+.voteQuestion__wrapper{
+  display: flex;
 }
 
 .answerButton{
