@@ -2,8 +2,9 @@ import React from 'react'
 import './AnswerComp.css'
 import { Link } from 'react-router-dom';
 import Vote from '../Vote/Vote';
+import TimeLapsed from '../TimeLapsed/TimeLapsed';
 
-function AnswerComp({userName, answer, answerId, upvotes, downvotes}) {
+function AnswerComp({userName, answer, answerId, upvotes, downvotes, createdAt}) {
   
   
 
@@ -25,9 +26,13 @@ function AnswerComp({userName, answer, answerId, upvotes, downvotes}) {
         downvotes={downvotes} />
       </div>
       
-      <Link to='/answer' className='answer__content'>
+      <Link to={`/question/answer?ansId=${answerId}`}className='answer__content'>
         <p>{truncate(answer, 300)}</p>
+        
       </Link>
+      
+      <div className='time__lapsed'><TimeLapsed createdAt={createdAt}/></div>
+
     </div>
   )
 }

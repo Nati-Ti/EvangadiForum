@@ -52,6 +52,7 @@ const Home = () => {
               questionId={ques.question_id}
               upvotes={ques.upvotes}
               downVotes={ques.downVotes}
+              createdAt={ques.createdAt}
               key={ques.question_id}
               />
           )

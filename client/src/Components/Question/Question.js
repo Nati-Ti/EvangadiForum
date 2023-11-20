@@ -4,8 +4,9 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link } from 'react-router-dom';
 import Vote from '../Vote/Vote';
 import axios from 'axios';
+import TimeLapsed from '../TimeLapsed/TimeLapsed';
 
-function Question({ title, description, questionId, userName, upvotes, downvotes}) {
+function Question({ title, description, questionId, userName, upvotes, downvotes, createdAt}) {
   
 
   function truncate(str, n) {
@@ -45,11 +46,16 @@ function Question({ title, description, questionId, userName, upvotes, downvotes
         downvotes={downvotes} />
       </div>
       
-      <Link to={`/question/answer?questId=${questionId}`} className='question__content'>
+      <Link to={`/question/allanswers?questId=${questionId}`} className='question__content'>
 
-        <div className='numOfAnswers'>{answerCount} answer</div>
         <h3>{title}</h3>
-        <p>{truncate(description, 140)}</p>
+        <p>{truncate(description, 170)}</p>
+
+        <div className='timeAndNum__wrapper'>
+          <div className='timeLapsed__wrapper'>
+            <TimeLapsed createdAt={createdAt}/></div>
+          <div className='numOfAnswers'>{answerCount} answer</div>
+        </div>
         
       </Link>
       <ArrowForwardIosIcon className='forwardIcon'/>

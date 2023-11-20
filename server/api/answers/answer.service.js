@@ -1,5 +1,5 @@
 // const pool = require('../../config/database');
-const { answer, registration } = require('../../config/sequelizeDB');
+const { answer, registration, question } = require('../../config/sequelizeDB');
 
 
 
@@ -13,6 +13,30 @@ module.exports = {
       question_id: data.questId,
       answer_code_base: data.answerCodeBase
     })
+      .then(results => {
+        callback(null, results);
+      })
+      .catch(err => {
+        callback(err);
+      });
+  },
+
+  getAnswerById: (answerId, callback) => {
+    answer.findOne({
+      where: { answer_id: answerId },
+      include: [
+        { 
+          model: registration,
+          attributes: ['user_id', 'user_name'],
+          required: false
+        },
+        { 
+          model: question,
+          attributes: ['question_id', 'question_title', 'question_description', 'upvotes', 'downvotes'],
+          required: false
+        }
+      ]
+      })
       .then(results => {
         callback(null, results);
       })

@@ -1,5 +1,5 @@
 const { answer } = require('../../config/sequelizeDB');
-const {answerPost, getAnswersById, upVote, downVote, numOfAns} = require('./answer.service');
+const {answerPost, getAnswersById, upVote, downVote, numOfAns, getAnswerById} = require('./answer.service');
 
 module.exports = {
 
@@ -22,6 +22,20 @@ module.exports = {
         });
       });
     }
+  },
+
+  answerById: (req, res) => {
+    const id = req.query.ansId;
+    getAnswerById(id, (err, results) => {
+      if (err) {
+        console.log(err); 
+        return res.status(500).json({ msg: 'Database connection error!' });
+      }
+      if (!results || results.length === 0) {
+        return res.status(404).json({ msg: "Record not found" });
+      }
+      return res.status(200).json({ data: results });
+    })
   },
 
   getAllAnswersById: (req, res) => {

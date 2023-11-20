@@ -41,6 +41,10 @@
   color: #656565;
 }
 
+.content__wrapper a {
+  text-decoration: none;
+}
+
 .content__wrapper button:hover {
   background-color: #FE8402;
 }

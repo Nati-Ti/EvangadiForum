@@ -7,8 +7,10 @@ import axios from 'axios';
 function Vote({instanceId, upvotes, route, downvotes, style}) {
 
   const [userData, setUserData] = useContext(UserContext);
+  const [vote, setVote] = useState(0);
 
-  const [vote, setVote] = useState((upvotes ? upvotes.length : 0) - (downvotes ? downvotes.length : 0));
+  
+  // const [vote, setVote] = useState((upvotes ? upvotes.length : 0) - (downvotes ? downvotes.length : 0));
 
   const [ lockUpVote, setLockUpVote] = useState(false);
   const [ lockDownVote, setLockDownVote] = useState(false);
@@ -50,13 +52,15 @@ function Vote({instanceId, upvotes, route, downvotes, style}) {
   // console.log(vote);
   // console.log(upvotes);
   // console.log(downvotes);
-  
+
   useEffect(() => {
+    const upvotesCount = upvotes ? upvotes.length : 0;
+    const downvotesCount = downvotes ? downvotes.length : 0;
+    const newVote = upvotesCount - downvotesCount;
+    setVote(newVote);
     checkVote();
-  }, []);
-
-
-
+  }, [upvotes, downvotes]);
+  
 
   return (
     <div className={`'reaction__wrapper' ${style==='triangle' ? 'reaction__wrapper2' : ''}`}>

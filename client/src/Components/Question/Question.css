@@ -1,6 +1,6 @@
 .Question{
   display: flex;
-  height: 82px;
+  height: 85px;
   border-bottom: 1px solid #DDDDDD;
   padding-top: 10px;
   margin-bottom: 10px;
@@ -36,15 +36,15 @@
 }
 
 .question__content h3 {
-  margin-top: -5px;
+  margin-top: -10px;
   width: 90%;
 }
 
 .question__content p {
-  width: 85%;
+  width: 95%;
   margin-top: -10px;
-  margin-left: 10px;
-  color: #999999;
+  margin-left: 3px;
+  color: #383B40;
 }
 
 .forwardIcon{
@@ -61,14 +61,27 @@
   align-items: center;
 }
 
-.numOfAnswers{
+.timeAndNum__wrapper {
+  padding: 0px 0px 0px 20px;
   display: flex;
-  justify-content: right;
+  justify-content: space-between;
+}
+
+.numOfAnswers{
+  /* display: flex; */
+  /* justify-content: space-between; */
   right: 10px;
   margin-top: -15px;
-  color: #999999;
+  color: #2D358E;
   font-size: large;
   font-weight: bold;
+}
+
+.timeLapsed__wrapper {
+  margin-top: -12px;
+  color: black;
+  /* display: flex;
+  justify-content: right; */
 }
 
 /* .thumbIcon{

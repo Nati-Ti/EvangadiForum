@@ -30,10 +30,12 @@ function Header() {
           </Link>
         </div>
         <div className='content__wrapper'>
-          <p>Home</p>
+          <Link to='/'>
+            <p>Home</p>
+          </Link>
           <p>How it Works</p>
           {!userData.user ? 
-          <button>SIGN IN</button>
+          <Link to='/login'><button>SIGN IN</button></Link>
           :  
           <div className='user__profile'
           onMouseEnter={handleDropdown}

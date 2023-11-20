@@ -1,116 +1,58 @@
-
-.Answer{
-  padding: 100px 0px;
-  width: 70%;
-  margin: 0px auto;
-  min-height: 50vh;
+.Answer {
+  min-height: 60vh;
 }
 
-.questionAns__wrapper{
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.questionAsked p, .questionAsked h4{
-  width: 85%;
-}
-
-.questionAsked {
-  margin-bottom: -15px;
-}
-
-.questionTitleDescr{
-  margin-left: 10px;
-}
-
-.voteQuestion__wrapper{
-  display: flex;
-}
-
-.answerButton{
-  margin-top: 10px;
-  width: 120px;
-  border: none;
-  border-radius: 5px;
-  padding: 12px 5px;
-  color: white;
-  font-size: 14px;
-  font-weight: 700;
-  background-color: gray;
-  align-self: flex-start;
-}
-
-.answerButton:hover{
-  background-color: #FE8402;
-}
-
-.questionAsked h4{
-  margin-bottom: -10px;
-  margin-top: -5px;
-}
-
-.previous__answers{
-  width: 100%;
-}
-
-.previous__answers h2{
+.question__header {
   border-bottom: 2px solid #DDDDDD;
-  padding: 7px 0px;
-  border-top: 2px solid #DDDDDD;
-  margin-bottom: 15px;
+  border-top:  2px solid #DDDDDD;
+  margin: 5px 0px;
 }
 
-.answer__form{
-  width: 90%;
-  background-color: white;
+.question__header h2 {
+  margin: 8px 0px;
+  padding-left: 30px;
+}
+
+.question__wrapper{
   display: flex;
-  flex-direction: column;
-  margin: 0px auto;
+  justify-content: space-evenly;
+}
+
+.question__descr {
+  width: 80%;
+}
+
+.question__descr h4{
+  margin-top: 15px;
+  margin-bottom: 10px;
+  font-size: larger;
+}
+
+.vote__wrapper {
+  display: flex;
   align-items: center;
-  margin-top: 50px;
-  border-radius: 20px;
-  padding: 20px 50px;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
-  
 }
 
-.answer__formHide {
-  display: none;
+.answer__header{
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #DDDDDD;
+  border-top:  2px solid #DDDDDD;
+  margin-bottom: 10px;
 }
 
-.answer__form h2{
-  margin-top: 0px;
-  margin-bottom: 0px;
+.answer__header h2 {
+  margin: 5px 0px;
+  padding-left: 20px;
 }
 
-.answer__description{
-  width: 100%;
-  border: 2px solid #DDDDDD;
-  border-radius: 10px;
-  height: 150px;
-  resize: none;
-  margin-bottom: 20px;
-  padding: 20px;
+.answer__content{
+  display: flex;
+  margin: 0px 0px 10px 30px;
 }
 
-.answer__description:focus{
-  outline: none;
-  border: 3px solid #FE8402;
-}
-
-.answer__post{
-  width: 200px;
-  border: none;
-  border-radius: 5px;
-  padding: 12px 5px;
-  color: white;
-  font-size: 14px;
-  font-weight: 700;
-  background-color: #516CF0;
-  align-self: flex-start;
-}
-
-.answer__post:hover{
-  background-color: #FE8402;
+.answer__content p{
+  /* width: 60%; */
+  line-height: 1.5;
+  margin: 5px 0px 10px 30px;
 }

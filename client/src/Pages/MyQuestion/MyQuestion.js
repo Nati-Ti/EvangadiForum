@@ -36,6 +36,8 @@ function MyQuestion() {
                 description={ques.question_description}
                 userName={userData.user?.display_name}
                 questionId={ques.question_id}
+                upvotes={ques.upvotes}
+                downvotes={ques.downvotes}
                 key={ques.question_id}
                 />
             )
