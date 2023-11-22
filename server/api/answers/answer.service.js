@@ -48,7 +48,8 @@ module.exports = {
   getAnswersById: (questionId, callback) => {
     answer.findAll({
       where: { question_id: questionId },
-      include: { model: registration, required: false }
+      include: { model: registration, required: false },
+      order: [['upvotes', 'DESC']]
     })
       .then(results => {
         callback(null, results);

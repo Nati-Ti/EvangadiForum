@@ -1,9 +1,11 @@
 .Question{
   display: flex;
-  height: 85px;
+  /* height: 85px; */
   border-bottom: 1px solid #DDDDDD;
   padding-top: 10px;
   margin-bottom: 10px;
+  align-items: center;
+  /* justify-content: center; */
 }
 
 .userInfo{
@@ -17,7 +19,7 @@
 
 .userInfo__wrapper{
   width: 125%;
-  padding: 5px 0px 0px;
+  padding: 0px 0px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,14 +54,19 @@
   height: inherit;
 }
 
-.reaction__vote{
+/* .reaction__vote{
   max-height: 95%;
   width: 7%;
   margin: -5px 15px 0px -10px;
   display: flex;
-  justify-content: right;
+  justify-content: center;
   align-items: center;
-}
+} */
+
+/* .reaction__vote div {
+  
+  align-items: center;
+} */
 
 .timeAndNum__wrapper {
   padding: 0px 0px 0px 20px;

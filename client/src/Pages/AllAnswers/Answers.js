@@ -5,10 +5,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../../Context/UserContext';
 import Vote from '../../Components/Vote/Vote';
+import TimeLapsed from '../../Components/TimeLapsed/TimeLapsed';
 
 function Answers() {
-
-  // const { questionId } = useParams();
 
   // Get the location object using useLocation
   const location = useLocation();
@@ -71,6 +70,20 @@ function Answers() {
     setDisplay(!display);
   }
 
+  const [ answerCount, setAnswerCount ] = useState(0);
+
+  useEffect(() => {
+    const fetchAnswerCount = async () => {
+      await axios.get(`http://localhost:4000/api/answers/numOfAnswers?questionId=${questionId}`)
+      .then((result) => setAnswerCount(result.data.data))
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+
+    fetchAnswerCount();
+  }, []);
+
 
   return (
     <div className='Answer'>
@@ -82,16 +95,25 @@ function Answers() {
           <button onClick={handleDisplay} className='answerButton'>{display ? 'Hide' : "Answer"}</button>
         </div>
         <div className='voteQuestion__wrapper'>
-          <Vote 
-            style='triangle'
-            route='questions'
-            instanceId={questionId}
-            upvotes={questionInfo.data?.upvotes}
-            downvotes={questionInfo.data?.downvotes}
-          />  
+          <div className='vote__wrap'>
+            <Vote 
+              style='triangle'
+              route='questions'
+              instanceId={questionId}
+              upvotes={questionInfo.data?.upvotes}
+              downvotes={questionInfo.data?.downvotes}
+            />  
+          </div>
+          
           <div className='questionTitleDescr'>
-            <h4>{questionInfo.data?.question_title}</h4>
+            <div className='titleTimeLaps__wrap'>
+              <h3>{questionInfo.data?.question_title}</h3>
+              <div className='timeLaps__wrap'>      (<TimeLapsed createdAt={questionInfo.data?.createdAt}/>)</div>      
+            </div>
+            
             <p>{questionInfo.data?.question_description}</p>
+            
+            
           </div>
           
         </div>
@@ -110,7 +132,11 @@ function Answers() {
       </form>
       
       <div className='previous__answers'>
-        <h2>Answer From The Community</h2>
+        <div className='ansAndNum__wrapper'>
+          <h2>Answer From The Community </h2>
+          <p>{answerCount} answer</p>
+        </div>
+        
         {answers?.data?.map((ans) => {
           return(
             <AnswerComp 

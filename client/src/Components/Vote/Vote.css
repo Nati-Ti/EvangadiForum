@@ -2,7 +2,7 @@
 .reaction__vote{
   max-height: 95%;
   width: 7%;
-  margin: -5px 15px 0px -10px;
+  margin: -15px 15px 0px -10px;
   display: flex;
   justify-content: right;
   align-items: center;
@@ -48,7 +48,7 @@
   margin: 15px 0px 0px 0px;
 }
 .reaction__count2{
-  margin: -10px -10px 38px -15px;
+  margin: -10px -10px 25px -15px;
 }
 /* 
 .upVote2{
