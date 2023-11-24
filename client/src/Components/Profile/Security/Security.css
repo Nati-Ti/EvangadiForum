@@ -1,0 +1,50 @@
+.Security{
+  padding: 20px;
+  width: 60%;
+  /* height: auto; */
+  border: 1px solid #DDDDDD;
+  border-radius: 8px;
+  background-color: white;
+  margin-bottom: 50px;
+}
+
+.Security h3 {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #DDDDDD;
+  margin-bottom: 30px;
+}
+
+.changePass__label{
+  font-size: larger;
+  color: #4A5568;
+}
+
+.input__password {
+  margin-top: 10px;
+  height: 40px;
+  width: 50%;
+  font-size: medium;
+  padding-left: 10px;
+  border-radius: 5px;
+  border: 1px solid #999999;
+}
+
+.input__password:focus{
+  outline: none;
+  border-bottom: 3px solid #0056b3;
+}
+
+.submit__passwordChange {
+  margin-top: 20px;
+  color: white;
+  background-color: #17A2B8;
+  border-radius: 5px;
+  font-size: large;
+  border: none;
+  padding: 10px;
+}
+
+.submit__passwordChange:hover {
+  background-color: #1193a7;
+  color: #DDDDDD;
+}

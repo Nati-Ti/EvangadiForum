@@ -1,0 +1,88 @@
+.ProfileInfo {
+  width: 60%;
+  /* height: auto; */
+  border: 1px solid #DDDDDD;
+  border-radius: 8px;
+  background-color: white;
+  margin-bottom: 20px;
+  padding: 20px;
+  margin-bottom: 50px;
+}
+
+.ProfileInfo h3 {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+.name__info {
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: space-between;
+}
+
+.name__info div {
+  width: 50%;
+}
+
+.bio__info, .url__info, .occupation__info, .residence__info, .birthday__info {
+  margin-bottom: 15px;
+}
+
+.input__fName, .input__lName, .input__bio, .input__url, .input__occupation, .input__residence, .input__birthday {
+  /* margin-left: 10px; */
+  margin-top: 5px;
+  height: 40px;
+  font-size: medium;
+  padding-left: 10px;
+  border-radius: 5px;
+  border: 1px solid #999999;
+}
+
+.input__fName:focus, .input__lName:focus {
+  outline: none;
+}
+
+.input__bio:focus, .input__url:focus, .input__occupation:focus, .input__residence:focus, .input__birthday:focus{
+  outline: none;
+  border-bottom: 3px solid #0056b3;
+}
+
+.input__birthday {
+  color: #999999;
+}
+
+.input__bio, .input__url, .input__occupation, .input__residence{
+  width: 98%;
+}
+
+.input__fName, .input__lName {
+  width: 95%;
+}
+
+.label {
+  color: #4A5568;
+  font-size: large;
+  font-weight: bold;
+}
+
+.update__submit {
+  color: white;
+  background-color: #0056b3;
+  border-radius: 5px;
+  font-size: large;
+  border: none;
+  height: 45px;
+  margin: 25px 50px 0px 0px;
+  display: flex;
+  align-items: center;
+  padding: 0px 20px;
+}
+
+.update__submit:hover {
+  background-color: #516CF0;
+}
+
+.update__wrapper {
+  justify-content: space-between;
+  display: flex;
+}

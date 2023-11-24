@@ -1,0 +1,60 @@
+.AccountSetting {
+  padding: 20px;
+  width: 60%;
+  /* height: 20%; */
+  border: 1px solid #DDDDDD;
+  border-radius: 8px;
+  background-color: white;
+  margin-bottom: 50px;
+}
+
+.password__label, .username__label {
+  font-size: larger;
+  color: #4A5568;
+}
+
+.input__username, .input__passwordToDelete {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  height: 40px;
+  width: 50%;
+  font-size: medium;
+  padding-left: 10px;
+  border-radius: 5px;
+  border: 1px solid #999999;
+}
+
+.input__passwordToDelete:focus, .input__username:focus{
+  outline: none;
+  border-bottom: 3px solid #0056b3;
+}
+
+.accountInfo__wrapper {
+  padding-bottom: 30px;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+.delete__para {
+  font-size: large;
+  color: #DC3545;
+}
+
+.delete__warn {
+  font-size: 18px;
+  color: #4A5568;
+}
+
+.delete__account {
+  /* margin-top: 20px; */
+  color: white;
+  background-color: #DC3545;
+  border-radius: 5px;
+  font-size: large;
+  border: none;
+  padding: 10px;
+}
+
+.delete__account:hover {
+  background-color: #C82333;
+  color: #DDDDDD;
+}

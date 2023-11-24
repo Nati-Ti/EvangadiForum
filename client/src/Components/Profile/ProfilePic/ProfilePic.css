@@ -1,0 +1,83 @@
+.ProfilePic{
+  width: 60%;
+  padding: 20px;
+  border: 1px solid #DDDDDD;
+  border-radius: 8px;
+  background-color: white;
+  margin-bottom: 50px;
+}
+
+.ProfilePic h3 {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+.pic__wrapper {
+  height: 250px;
+  width: 250px;
+  position: relative;
+  border: 5px solid white;
+  border-radius: 50%;
+  background: url('https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=600');
+  background-size: 100% 100%;
+  margin: 20px auto;
+  overflow: hidden;
+
+}
+
+.profPicture {
+  position: absolute;
+  bottom: 0;
+  outline: none;
+  color: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px 95px;
+  cursor: pointer;
+  transition: 0.5s;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+}
+
+.profPicture::-webkit-file-upload-button {
+  visibility: none;
+}
+
+.profPicture::before {
+  content: '\f030';
+  font-family: fontAwesome;
+  font-size: 50px;
+  color: white;
+  display: inline-block;
+  /* -webkit-user-select:none; */
+}
+
+.profPicture::after {
+  content: 'Upload';
+  font-family: 'arial';
+  font-weight: bold;
+  color: white;
+  display: block;
+  top: 70px;
+  font-size: 14px;
+  margin-left: 3px;
+}
+
+.profPicture:hover {
+  opacity: 1;
+}
+
+.updateProfile__submit {
+  color: white;
+  background-color: #0056b3;
+  border-radius: 5px;
+  font-size: large;
+  border: none;
+  padding: 10px;
+  display: flex;
+  margin: 0px auto;
+}
+
+.updateProfile__submit:hover {
+  background-color: #516CF0;
+}
