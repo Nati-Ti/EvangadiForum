@@ -92,7 +92,7 @@ return (
               placeholder="Password"
           /><br />
           <button className="signup__submit">Agree and join</button>
-        </form>
+      </form>
         <p className="signup__terms">
           I agree to the <Link to="/">privacy policy</Link> and <Link to="/">terms of service.</Link>
           <br/><br/>

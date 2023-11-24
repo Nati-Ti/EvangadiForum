@@ -27,7 +27,7 @@ function Menu() {
     <div className='Menu'>
       <div className='dropdown__menu'>
           <p>Welcome: {userData.user.display_name}</p>
-          <Link to='/'>Profile</Link>
+          <Link to='/profile'>Profile</Link>
           <Link to='/myQuestion'>My Questions</Link>
           <p onClick={ handleLogout} >LogOut</p>
       </div>

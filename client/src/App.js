@@ -12,6 +12,7 @@ import AskQuestion from './Pages/AskQuestion/AskQuestion';
 import MyQuestion from './Pages/MyQuestion/MyQuestion';
 import Answers from './Pages/AllAnswers/Answers';
 import Answer from './Pages/Answer/Answer';
+import UserProfile from './Pages/UserProfile/UserProfile';
 
 function App() {
   const [userData, setUserData] = useContext(UserContext);
@@ -56,6 +57,7 @@ function App() {
         <Route path="/myQuestion" element={ <MyQuestion/> } />
         <Route path="/question/allanswers" element={ <Answers/> } />
         <Route path="/question/answer" element={ <Answer/> } />
+        <Route path="/profile" element={ <UserProfile /> } />
         <Route path="/" element={ <Home/> } />
       </Routes>
       <Footer/>

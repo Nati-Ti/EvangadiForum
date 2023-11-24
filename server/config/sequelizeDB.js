@@ -64,6 +64,24 @@ const profile = sequelize.define('profile', {
     type: DataTypes.STRING(255),
     allowNull: false,
   },
+  profile_picture: {
+    type: DataTypes.TEXT
+  },
+  bio: {
+    type: DataTypes.TEXT
+  },
+  url: {
+    type: DataTypes.TEXT
+  },
+  birth_date: {
+    type: DataTypes.INTEGER
+  },
+  occupation: {
+    type: DataTypes.STRING(255)
+  },
+  location: {
+    type: DataTypes.STRING(255)
+  }
 }, {
   tableName: 'profile',
 });
