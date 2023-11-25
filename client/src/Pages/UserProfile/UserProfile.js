@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './UserProfile.css';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
@@ -8,10 +8,25 @@ import ProfileInfo from '../../Components/Profile/ProfileInfo/ProfileInfo';
 import ProfilePic from '../../Components/Profile/ProfilePic/ProfilePic';
 import Security from '../../Components/Profile/Security/Security';
 import AccountSetting from '../../Components/Profile/AccountSetting/AccountSetting';
+import { UserContext } from '../../Context/UserContext';
+import axios from 'axios';
 
 
 
 function UserProfile() {
+
+  const [ userData, setUserData ] = useContext(UserContext);
+  const [ userProfile, setUserProfile ] = useState({});
+  // const [profilePicture, setProfilePicture] = useState();
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      await axios.get(`http://localhost:4000/api/users/profileInfo?userId=${userData?.user?.id}`).then((res) => setUserProfile(res.data)).catch((err) => console.log(err));
+    }
+
+    fetchUserProfile();
+  }, []);
+
 
   const [ component, setComponent ]  = useState(<ProfileInfo/>);
   const [ bgColor, setBgColor ] = useState('profileInfo');
@@ -22,7 +37,7 @@ function UserProfile() {
   }
 
   const handleProfilePic = () => {
-    setComponent(() => <ProfilePic/>);
+    setComponent(() => <ProfilePic />);
     setBgColor(() => 'profilePic');
   }
 

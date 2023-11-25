@@ -1,4 +1,4 @@
-const {register, profile, userById, getAllUsers, getUserByEmail} = require('./user.service');
+const {register, profile, userById, getAllUsers, getUserByEmail, profileInfoById} = require('./user.service');
 
 // const pool = require('../../config/database');
 const bcrypt = require('bcryptjs');
@@ -118,6 +118,22 @@ module.exports = {
               }
           })
       })
-  }
+  },
+
+  getProfileInfo: (req, res) => {
+    const id = req.query.userId;
+    profileInfoById(id, (err, results) => {
+        if (err) {
+            console.log(err);
+            return res
+                .status(500)
+                .json({ msg: "database connection err" })
+        }
+        if (!results) {
+            return res.status(404).json({ msg: "Record not found" });
+        }
+        return res.status(200).json({ data: results })
+    })
+  },
 
 }

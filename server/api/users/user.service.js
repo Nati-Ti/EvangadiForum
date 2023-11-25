@@ -65,6 +65,18 @@ module.exports = {
       .catch(err => {
         callback(err);
       });
+  },
+
+  profileInfoById: (id, callback) => {
+    profile.findOne({
+      where: { user_id: id }
+    })
+      .then(results => {
+        callback(null, results);
+      })
+      .catch(err => {
+        callback(err);
+      });
   }
 
 
