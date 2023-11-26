@@ -77,6 +77,25 @@ module.exports = {
       .catch(err => {
         callback(err);
       });
+  }, 
+
+  updateProfile:(data, callback) => {
+    profile.findOne({
+      where: {user_id: data.id}
+    }).then( async (prof) => {
+      prof.bio = data.bio,
+      prof.url = data.url,
+      prof.occupation = data.occupation,
+      prof.location = data.location,
+      prof.birth_date = data.birthday
+      await prof.save();
+    })
+    .then(results => {
+      callback(null, results);
+    })
+    .catch(err => {
+      callback(err);
+    });
   }
 
 

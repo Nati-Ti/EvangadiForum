@@ -12,10 +12,9 @@ const Home = () => {
 
   const [questions, setQuestions] = useState([]);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   async function fetchQuestions() {
-
     await axios.get('http://localhost:4000/api/questions')
       .then((res) => {setQuestions(res.data)})
       .catch((err) => {
@@ -45,11 +44,12 @@ const Home = () => {
         {questions?.data?.map((ques) => {
           return(
             <Question 
-              // fetchQuestions={fetchQuestions}
               title={ques.question_title}
               description={ques.question_description}
+              userId={ques.registration.user_id}
               userName={ques.registration.user_name}
               questionId={ques.question_id}
+              profFileName={ques.profile.profile_picture}
               upvotes={ques.upvotes}
               downVotes={ques.downVotes}
               createdAt={ques.createdAt}

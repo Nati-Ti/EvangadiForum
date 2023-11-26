@@ -52,6 +52,11 @@ function Answers() {
   const [userData, setUserData] = useContext(UserContext);
   const navigate = useNavigate();
 
+
+  const handleReload = () => {
+    window.location.reload();
+  };
+
   const handleChange = (e) => {
     setAnswer({ ...answer, userId: userData.user.id, questId: questionId, [e.target.name]: e.target.value });
   };
@@ -59,9 +64,10 @@ function Answers() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:4000/api/answers/postAnswer', answer);
+    axios.post('http://localhost:4000/api/answers/postAnswer', answer).then(() => handleReload());
 
-    navigate(`/`);
+    
+    // navigate(`/question/allanswers?questId=${questionId}`);
   }
 
   const [ display, setDisplay ] = useState(false);
@@ -119,7 +125,7 @@ function Answers() {
         </div>
       </div>
 
-      <form className={display ? 'answer__form' : 'answer__formHide'} onSubmit={handleSubmit}>
+      <form className={display ? 'answer__form' : 'answer__formHide'}>
         <h2>Answer The Top Question</h2>
         <p>Go to Question page</p>
         <textarea 
@@ -128,7 +134,7 @@ function Answers() {
             name="answer"
             onChange={handleChange}
             placeholder="Your Answer..."/>
-        <button className='answer__post'>Post Your Answer</button>
+        <button onClick={handleSubmit} className='answer__post'>Post Your Answer</button>
       </form>
       
       <div className='previous__answers'>
@@ -141,6 +147,7 @@ function Answers() {
           return(
             <AnswerComp 
             answer={ans.answer}
+            userId={ans.user_id}
             answerId={ans.answer_id}
             upvotes={ans.upvotes}
             downvotes={ans.downvotes}

@@ -74,7 +74,7 @@ const profile = sequelize.define('profile', {
     type: DataTypes.TEXT
   },
   birth_date: {
-    type: DataTypes.INTEGER
+    type: DataTypes.DATE
   },
   occupation: {
     type: DataTypes.STRING(255)
@@ -211,9 +211,11 @@ const bookmark = sequelize.define('bookmark', {
   question.hasMany(answer, { foreignKey: 'question_id' });
 
   profile.belongsToMany(question, { through: 'bookmark', foreignKey: 'user_id' });
-  question.belongsToMany(profile, { through: 'bookmark', foreignKey: 'question_id' });
+  question.belongsTo(profile, { through: 'bookmark', 
+  foreignKey: 'question_id' });
 
-  
+  // question.belongsTo(profile, {foreignKey: 'user_id'});
+  // profile.hasMany(question, {foreignKey: 'user_id'});
 
   // Sync the models with the database
 sequelize.sync({ force: false })

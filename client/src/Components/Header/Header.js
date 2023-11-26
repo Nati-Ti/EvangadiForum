@@ -3,24 +3,45 @@ import './Header.css'
 import { Link } from 'react-router-dom'
 import { UserContext } from '../../Context/UserContext';
 import Menu from '../Menu/Menu';
+import axios from 'axios';
 
 function Header() {
+  
   const [userData, setUserData] = useContext(UserContext);
+  const [ menuDropdown, setMenuDropdown ] = useState(false);
+  const [profilePicture, setProfilePicture] = useState();
 
+  useEffect(() => {
+    const fetchProfilePicture = async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/api/uploads//userProfilePic?userId=${userData?.user?.id}`, {
+          responseType: 'blob', // Ensure binary response
+        });
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setProfilePicture(reader.result);
+        };
+        reader.readAsDataURL(response.data);
+      } catch (error) {
+        console.log('Error:', error);
+      }
+    };
 
-    const [ menuDropdown, setMenuDropdown ] = useState(false);
+    fetchProfilePicture();
+  }, [userData]);
 
-    const handleDropdown = () => {
-      setMenuDropdown(true);
-    }
-    const hideDropdown = () => {
-      setMenuDropdown(false);
-    }
+  const handleDropdown = () => {
+    setMenuDropdown(true);
+  }
+  const hideDropdown = () => {
+    setMenuDropdown(false);
+  }
 
-    useEffect(() => {
-      setMenuDropdown(false);
-    },[userData]);
+  useEffect(() => {
+    setMenuDropdown(false);
+  },[userData]);
 
+  
   return (
     <div className='Header'>
       <div className='header__contents'>
@@ -41,7 +62,7 @@ function Header() {
           onMouseEnter={handleDropdown}
           onMouseLeave={hideDropdown}
           >
-            <img src='https://static.vecteezy.com/system/resources/previews/010/056/184/original/people-icon-sign-symbol-design-free-png.png' alt='profile icon' />
+            <img src={profilePicture || `https://static.vecteezy.com/system/resources/previews/010/056/184/original/people-icon-sign-symbol-design-free-png.png`} alt='profile icon' />
             {menuDropdown && <Menu/>}
           </div>
           }

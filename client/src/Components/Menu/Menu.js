@@ -16,6 +16,7 @@ function Menu() {
       });
 
       localStorage.removeItem('auth-token');
+      navigate('/login');
     };
 
     useEffect(() => {
@@ -26,7 +27,7 @@ function Menu() {
   return (
     <div className='Menu'>
       <div className='dropdown__menu'>
-          <p>Welcome: {userData.user.display_name}</p>
+          <p>Signed in as: {userData.user.display_name}</p>
           <Link to='/profile'>Profile</Link>
           <Link to='/myQuestion'>My Questions</Link>
           <p onClick={ handleLogout} >LogOut</p>

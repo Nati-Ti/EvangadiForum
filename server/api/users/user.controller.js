@@ -1,4 +1,4 @@
-const {register, profile, userById, getAllUsers, getUserByEmail, profileInfoById} = require('./user.service');
+const {register, profile, userById, getAllUsers, getUserByEmail, profileInfoById, updateProfile} = require('./user.service');
 
 // const pool = require('../../config/database');
 const bcrypt = require('bcryptjs');
@@ -134,6 +134,25 @@ module.exports = {
         }
         return res.status(200).json({ data: results })
     })
+  },
+
+  updateProfileInfo: (req, res) => {
+
+    const { id, bio, occupation, location, birthday, url } = req.body;
+  
+    if ( !id || !bio || !url || !location || !occupation || !birthday)
+      return res.status(400).json({ msg: 'Not all fields have been provided!' });
+    
+    updateProfile(req.body, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ msg: 'Database connection error!' });
+      }
+      return res.status(200).json({
+        msg: 'Profile Information updated successfully!',
+        // data: results
+      });
+    });
   },
 
 }

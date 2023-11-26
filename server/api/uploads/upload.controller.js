@@ -38,6 +38,21 @@ module.exports = {
         console.log(error);
         return res.status(500).json({ msg: 'Error retrieving profile picture' });
       });
+  },
+
+  getProfilePicByFileName: (req, res) => {
+    const fileName = req.query.fileName;
+
+    const filePath = getProfilePicture(fileName)
+      if (!filePath) {
+        // console.log(err);
+        return res.status(500).json({ msg: 'Error retrieving profile picture' });
+      }
+       // console.log(filePath);
+      // Set the appropriate headers to serve the file
+      res.setHeader('Content-Type', 'image/*');
+      // Set the correct content type for the file
+      res.sendFile(filePath);
   }
 
 

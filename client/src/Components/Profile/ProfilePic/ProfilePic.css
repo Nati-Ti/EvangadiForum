@@ -92,3 +92,19 @@
 .updateProfile__submit:hover {
   background-color: #516CF0;
 }
+
+.profPicUpdate__success {
+  display: flex;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  color: #999999;
+  font-weight: bold;
+  font-size: large;
+}
+
+.profPicUpdate__success img {
+  height: 25px;
+  margin-right: 10px;
+}

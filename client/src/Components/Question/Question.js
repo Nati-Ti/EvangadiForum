@@ -6,7 +6,7 @@ import Vote from '../Vote/Vote';
 import axios from 'axios';
 import TimeLapsed from '../TimeLapsed/TimeLapsed';
 
-function Question({ title, description, questionId, userName, upvotes, downvotes, createdAt}) {
+function Question({userId, title, description, questionId, userName, profFileName, upvotes, downvotes, createdAt}) {
   
 
   function truncate(str, n) {
@@ -14,6 +14,7 @@ function Question({ title, description, questionId, userName, upvotes, downvotes
   }
 
   const [ answerCount, setAnswerCount ] = useState(0);
+  const [profilePicture, setProfilePicture] = useState();
 
   useEffect(() => {
     const fetchAnswerCount = async () => {
@@ -27,13 +28,33 @@ function Question({ title, description, questionId, userName, upvotes, downvotes
     fetchAnswerCount();
   }, []);
 
+  useEffect(() => {
+    const fetchProfilePicture = async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/api/uploads/userProfilePic?userId=${userId}`, {
+          responseType: 'blob', // Ensure binary response
+        });
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setProfilePicture(reader.result);
+        };
+        reader.readAsDataURL(response.data);
+      } catch (error) {
+        console.log('Error:', error);
+      }
+    };
+
+    fetchProfilePicture();
+  }, []);
+
+
 
 
   return (
     <div className='Question'>
       <div className='userInfo'>
         <div className='userInfo__wrapper'>
-          <img src='https://static.vecteezy.com/system/resources/previews/010/056/184/original/people-icon-sign-symbol-design-free-png.png' alt='profile icon' />
+          <img src={profilePicture || `https://static.vecteezy.com/system/resources/previews/010/056/184/original/people-icon-sign-symbol-design-free-png.png`} alt='profile icon' />
           <p>{userName}</p>
         </div>
       </div>

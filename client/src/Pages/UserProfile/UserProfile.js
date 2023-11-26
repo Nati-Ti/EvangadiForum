@@ -17,22 +17,43 @@ function UserProfile() {
 
   const [ userData, setUserData ] = useContext(UserContext);
   const [ userProfile, setUserProfile ] = useState({});
-  // const [profilePicture, setProfilePicture] = useState();
+
 
   useEffect(() => {
-    const fetchUserProfile = async () => {
-      await axios.get(`http://localhost:4000/api/users/profileInfo?userId=${userData?.user?.id}`).then((res) => setUserProfile(res.data)).catch((err) => console.log(err));
+    const fetchProfileInfo = async () => {
+      await axios.get(`http://localhost:4000/api/users/profileInfo?userId=${userData?.user?.id}`)
+      .then((res) => setUserProfile(res.data))
+      .catch((err) => console.log(err));
     }
+    fetchProfileInfo();
+  }, [userData]);
+  // console.log(userProfile.data);
 
-    fetchUserProfile();
-  }, []);
+  // console.log(profInfo);
 
+  let props = {};
+  const [component, setComponent] = useState(null);
+  const [bgColor, setBgColor] = useState('profileInfo');
 
-  const [ component, setComponent ]  = useState(<ProfileInfo/>);
-  const [ bgColor, setBgColor ] = useState('profileInfo');
+  useEffect(() => {
+    if (userProfile.data) {
+      props = {
+        userId: userProfile.data?.user_id,
+        fName: userProfile.data?.first_name,
+        lName: userProfile.data?.last_name,
+        bio: userProfile.data?.bio,
+        url: userProfile.data?.url,
+        occupation: userProfile.data?.occupation,
+        location: userProfile.data?.location,
+        birthDay: userProfile.data?.birth_date,
+      };
+
+      setComponent(<ProfileInfo {...props} />);
+    }
+  }, [userProfile]);
 
   const handleProfileInfo = () => {
-    setComponent(() => <ProfileInfo/>);
+    setComponent(() => <ProfileInfo {...props}/>);
     setBgColor(() => 'profileInfo');
   }
 
@@ -50,7 +71,6 @@ function UserProfile() {
     setComponent(() => <Security/>);
     setBgColor(() => 'security');
   }
-
 
 
   return (

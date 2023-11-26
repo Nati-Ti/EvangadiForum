@@ -1,5 +1,5 @@
 // const pool = require('../../config/database');
-const { registration, question } = require('../../config/sequelizeDB');
+const { registration, question, profile } = require('../../config/sequelizeDB');
 const { sequelize } = require('../../config/sequelizeDB');
 
 
@@ -23,11 +23,19 @@ module.exports = {
   
   getAllQuestions: (callback) => {
     question.findAll({
-      include: {
-        model: registration,
-        attributes: ['user_id', 'user_name'],
-        required: false
-      },
+      include: [
+        { 
+          model: registration,
+          attributes: ['user_id', 'user_name'],
+          required: false
+        },
+        {
+          model: profile,
+          attributes: ['user_profile_id', 'profile_picture'],
+          required: false,
+          where: { user_id: sequelize.col('question.user_id') }
+        }
+      ],
       order: [['createdAt', 'DESC']]
     })
       .then(results => {

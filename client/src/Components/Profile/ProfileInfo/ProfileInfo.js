@@ -1,8 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './ProfileInfo.css';
+import axios from 'axios';
 
 
-function ProfileInfo() {
+function ProfileInfo({userId, fName, lName, bio, url, occupation, location, birthDay }) {
+
+
+  const [form, setForm] = useState({});
+  
+  const handleChange = (e) => {
+      setForm({ ...form, id: userId, [e.target.name]: e.target.value });
+  };
+  const handleUpdate = async (e) => {
+      e.preventDefault();
+      try {
+          await axios.put('http://localhost:4000/api/users/profileUpdate', form);
+
+      } catch (error) {
+          console.log('problem ==>', error.response.data.msg);
+      }
+  }
+  
   return (
     <div className='ProfileInfo'>
       <h3>PROFILE INFORMATION</h3>
@@ -16,6 +34,7 @@ function ProfileInfo() {
                 className="input__fName"
                 type="text"
                 name="firstName"
+                value={fName}
                 // onChange={handleChange}
                 placeholder="First Name:"
                 readOnly/>
@@ -28,6 +47,7 @@ function ProfileInfo() {
                 className="input__lName"
                 type="text"
                 name="lastName"
+                value={lName}
                 // onChange={handleChange}
                 placeholder="Last Name:"
                 readOnly/>
@@ -43,7 +63,8 @@ function ProfileInfo() {
               className="input__bio"
               type="text"
               name="bio"
-              // onChange={handleChange}
+              value={bio}
+              onChange={handleChange}
               placeholder="Your Bio:"/>
         </div>
 
@@ -54,7 +75,8 @@ function ProfileInfo() {
               className="input__url"
               type="text"
               name="url"
-              // onChange={handleChange}
+              value={url}
+              onChange={handleChange}
               placeholder="Website URL:"/>
         </div> 
 
@@ -65,7 +87,8 @@ function ProfileInfo() {
               className="input__occupation"
               type="text"
               name="occupation"
-              // onChange={handleChange}
+              value={occupation}
+              onChange={handleChange}
               placeholder="Occupation:"/>
         </div>
 
@@ -75,8 +98,9 @@ function ProfileInfo() {
           <input
               className="input__residence"
               type="text"
-              name="residence"
-              // onChange={handleChange}
+              name="location"
+              value={location}
+              onChange={handleChange}
               placeholder="Location:"/>
         </div>
 
@@ -88,11 +112,12 @@ function ProfileInfo() {
                 className="input__birthday"
                 type="date"
                 name="birthday"
-                // onChange={handleChange}
+                value={birthDay}
+                onChange={handleChange}
                 placeholder="Birth date"/>
           </div>
 
-          <button className="update__submit">Update Profile</button>
+          <button onClick={handleUpdate} className="update__submit">Update Profile</button>
         </div>
 
       </form>

@@ -17,18 +17,21 @@
 }
 
 .userInfo img{
-  width: 60%;
+  width: 65%;
+  /* height: 70px; */
+  border-radius: 50%;
 }
 
 .answer__content{
   margin-left: 50px;
-  width: 75%;
+  width: 72%;
   color: #575656;
   text-decoration: none;
+  margin-right: -40px;
 }
 
 .answer__content p{
-  margin-top: -5px;
+  padding-top: 10px;
 }
 
 .voteWrapper{
@@ -42,5 +45,5 @@
 }
 
 .time__lapsed{
-  padding: 65px 0px 0px;
+  padding: 60px 0px 0px 0px;
 }
