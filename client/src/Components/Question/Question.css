@@ -8,6 +8,10 @@
   /* justify-content: center; */
 }
 
+.Question:hover {
+  background-color: #FAFAFA;
+}
+
 .userInfo{
   width: 10%;
   /* margin-top: -10px; */

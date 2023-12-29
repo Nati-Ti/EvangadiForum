@@ -96,7 +96,7 @@
   display: flex;
   border-bottom: 2px solid #DDDDDD;
   border-top: 2px solid #DDDDDD;
-  margin: 15px 0px 5px;
+  margin: 15px 0px 0px;
   padding-left: 10px;
   align-items: center;
 }

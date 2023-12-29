@@ -43,9 +43,17 @@
 .questionsAsked h2{
   padding-bottom: 5px;
   border-bottom: 1px solid #DDDDDD;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 }
 
-/* .questionsAsked a{
-  text-decoration: none;
-} */
+.question__search {
+  display: flex;
+  align-items: center;
+  width: 40%;
+}
+
+.question__search input{
+  padding: 5px 20px;
+  width: 100%;
+}
+

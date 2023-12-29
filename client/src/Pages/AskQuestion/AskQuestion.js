@@ -17,12 +17,22 @@ function AskQuestion() {
     e.preventDefault();
     try {
         
+      // const requestOptions = {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(questionForm)
+      // };
+      // fetch('http://localhost:4000/api/questions', requestOptions);
+      //     // .then(response => response.json())
+      //     // .then(data => this.setState({ postId: data.id }));
+          
         await axios.post('http://localhost:4000/api/questions', questionForm);
 
         navigate("/");
     } catch (error) {
         console.log('problem ==>', error.response.data.msg);
     }
+    console.log(questionForm);
   }
 
   return (
