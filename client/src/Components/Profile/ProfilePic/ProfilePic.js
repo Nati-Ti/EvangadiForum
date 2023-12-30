@@ -32,6 +32,11 @@ function ProfilePic() {
         },
       });
 
+      setUserData({
+        ...userData,
+        profileUpdate: true
+      });
+
     } catch (error) {
       setError(() => error);
       console.log('problem ==>', error.response.data.msg);

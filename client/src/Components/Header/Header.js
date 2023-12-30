@@ -14,7 +14,8 @@ function Header() {
   useEffect(() => {
     const fetchProfilePicture = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/uploads//userProfilePic?userId=${userData?.user?.id}`, {
+        // console.log(userData.user.id);
+        const response = await axios.get(`http://localhost:4000/api/uploads/userProfilePic?userId=${userData.user?.id}`, {
           responseType: 'blob', // Ensure binary response
         });
         const reader = new FileReader();
@@ -28,7 +29,7 @@ function Header() {
     };
 
     fetchProfilePicture();
-  }, [userData]);
+  }, [[],userData.profileUpdate]);
 
   const handleDropdown = () => {
     setMenuDropdown(true);

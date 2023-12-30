@@ -69,7 +69,7 @@ function Question({userId, title, description, questionId, userName, profFileNam
       
       <Link to={`/question/allanswers?questId=${questionId}`} className='question__content'>
 
-        <h3>{title}</h3>
+        <h3>{truncate(title, 80)}</h3>
         <p>{truncate(description, 170)}</p>
 
         <div className='timeAndNum__wrapper'>

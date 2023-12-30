@@ -91,6 +91,7 @@
 
 .updateProfile__submit:hover {
   background-color: #516CF0;
+  cursor: pointer;
 }
 
 .profPicUpdate__success {

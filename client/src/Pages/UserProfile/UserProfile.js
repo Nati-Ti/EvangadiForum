@@ -18,21 +18,22 @@ function UserProfile() {
   const [ userData, setUserData ] = useContext(UserContext);
   const [ userProfile, setUserProfile ] = useState({});
 
+  const fetchProfileInfo = async () => {
+    await axios.get(`http://localhost:4000/api/users/profileInfo?userId=${userData?.user?.id}`)
+    .then((res) => setUserProfile(res.data))
+    .catch((err) => console.log(err));
+  }
 
   useEffect(() => {
-    const fetchProfileInfo = async () => {
-      await axios.get(`http://localhost:4000/api/users/profileInfo?userId=${userData?.user?.id}`)
-      .then((res) => setUserProfile(res.data))
-      .catch((err) => console.log(err));
-    }
+    
     fetchProfileInfo();
-  }, [userData]);
+  }, []);
   // console.log(userProfile.data);
 
   // console.log(profInfo);
 
   let props = {};
-  const [component, setComponent] = useState(null);
+  const [component, setComponent] = useState(<ProfileInfo {...props}/>);
   const [bgColor, setBgColor] = useState('profileInfo');
 
   useEffect(() => {
@@ -53,6 +54,7 @@ function UserProfile() {
   }, [userProfile]);
 
   const handleProfileInfo = () => {
+    fetchProfileInfo();
     setComponent(() => <ProfileInfo {...props}/>);
     setBgColor(() => 'profileInfo');
   }

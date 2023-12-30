@@ -7,6 +7,8 @@ function ProfileInfo({userId, fName, lName, bio, url, occupation, location, birt
 
 
   const [form, setForm] = useState({});
+  const [ error, setError ] = useState('');
+  const [ successShow, setSuccessShow ] = useState(false);
   
   const handleChange = (e) => {
       setForm({ ...form, id: userId, [e.target.name]: e.target.value });
@@ -17,8 +19,11 @@ function ProfileInfo({userId, fName, lName, bio, url, occupation, location, birt
           await axios.put('http://localhost:4000/api/users/profileUpdate', form);
 
       } catch (error) {
-          console.log('problem ==>', error.response.data.msg);
+        // setError(error);
+        console.log('problem ==>', error.response.data.msg);
       }
+      
+    setSuccessShow(true);
   }
   
   return (
@@ -117,6 +122,13 @@ function ProfileInfo({userId, fName, lName, bio, url, occupation, location, birt
                 placeholder="Birth date"/>
           </div>
 
+          {(!error && successShow) ?
+            <div className='profInfoUpdate__success'>
+              <img src='https://icons.veryicon.com/png/o/miscellaneous/8atour/success-35.png' alt='successIcon' />
+              <p>Profile picture update successful!</p>
+            </div>
+            : null
+          }
           <button onClick={handleUpdate} className="update__submit">Update Profile</button>
         </div>
 

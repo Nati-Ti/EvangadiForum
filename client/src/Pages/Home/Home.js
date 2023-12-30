@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from '../../Context/UserContext';
 import Question from '../../Components/Question/Question';
+import Topic from '../../Components/Topic/Topic';
 // import axios from 'axios';
 
 
@@ -13,6 +14,9 @@ const Home = () => {
   const [questions, setQuestions] = useState([]);
   const [searchQuestion, setSearchQuestion] = useState('');
   const [filteredQuestions, setFilteredQuestions] = useState([]);
+  const [noMatch, setNoMatch] = useState(false);
+
+  // const [topic, setTopic] = useState('');
   const navigate = useNavigate();
 
   async function fetchQuestions() {
@@ -30,6 +34,22 @@ const Home = () => {
     fetchQuestions();
   }, []);
 
+  const checkMatch = (item) => {
+    if(item.length === 0){
+      setNoMatch(true);
+    }else{
+      setNoMatch(false);
+    }
+  }
+
+  const handleDataChange = (topic) => {
+    // setTopic(topic);
+    const filteredItems = questions.filter((question) =>
+    question.question_title.toLowerCase().includes((topic === 'All') ? '' : topic .toLowerCase()));
+
+    setFilteredQuestions(filteredItems);
+    checkMatch(filteredItems);
+  };
 
   const handleInputChange = (e) => { 
     const searchTerm = e.target.value;
@@ -39,8 +59,8 @@ const Home = () => {
     question.question_title.toLowerCase().includes(searchTerm.toLowerCase()));
 
     setFilteredQuestions(filteredItems);
+    checkMatch(filteredItems);
   }
-
   // console.log(questions.data);
   // console.log(filteredQuestions);
 
@@ -61,14 +81,20 @@ const Home = () => {
             onChange={handleInputChange}
             placeholder='Search your question' />  
         </div>
-        <h2>Welcome: {userData.user?.display_name}</h2>
+        <h2 className='welcome__user'>Welcome: {userData.user?.display_name}</h2>
       </div>
       <div className='questionsAsked'>
-        <h2>Questions</h2>
+
+        <div className='questions__header'>
+          <h2>Questions</h2>
+          <div className='questions__topics'>
+          <Topic onDataChange={handleDataChange} />
+          </div>
+        </div>
         
-        {filteredQuestions?.map((ques) => {
-          return(
-            <Question 
+        {!noMatch ?
+        filteredQuestions?.map((ques) => (
+            <Question
               title={ques.question_title}
               description={ques.question_description}
               userId={ques.registration.user_id}
@@ -79,9 +105,11 @@ const Home = () => {
               downVotes={ques.downVotes}
               createdAt={ques.createdAt}
               key={ques.question_id}
-              />
-          )
-        })}
+            />
+          )) :
+          <div className='noMatch'><h2>No match found!</h2></div>
+          }
+        
       </div>
     </div>
   )
