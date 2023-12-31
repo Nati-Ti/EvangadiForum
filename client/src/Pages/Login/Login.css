@@ -32,6 +32,11 @@
 }
 
 .login__newAcc a{
+  color: #FE8402;
+  text-decoration: none;
+}
+
+.login__newAcc a:hover{
   color: #DA7000;
 }
 
@@ -73,13 +78,18 @@
 
 .login__inputs button:hover{
   background-color: #DA7000;
+  cursor: pointer;
 }
 
 .login__form a {
-  color: #DA7000;
+  color: #FE8402;
   margin-bottom: 70px;
+  text-decoration: none;
 }
 
+.login__form a:hover{
+  color: #DA7000;
+}
 
 .login__about{
   width: 40%;

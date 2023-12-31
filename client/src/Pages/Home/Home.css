@@ -1,6 +1,6 @@
 .Home{
-  padding-top: 90px;
-  min-height: 75vh;
+  padding-top: 60px;
+  min-height: 85vh;
 }
 
 .welcome__wrapper{
@@ -34,6 +34,7 @@
 
 .welcome__wrapper button:hover{
   background-color: #FE8402;
+  cursor: pointer;
 }
 
 .welcome__wrapper button a{
@@ -68,7 +69,12 @@
   width: 100%;
   border: 1px solid #a19e9e;
   border-radius: 5px;
-  margin-left: -100px;
+  /* margin-left: -100px; */
+}
+
+.question__search input:focus{
+  outline: none;
+  border: 1px solid #516CF0;
 }
 
 .questions__header {

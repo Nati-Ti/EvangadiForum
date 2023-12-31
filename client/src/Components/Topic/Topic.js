@@ -18,9 +18,9 @@ function Topic({ onDataChange }) {
   return (
     <div className='topics__wrapper'>
       <ul className='topics__list'>
-        {topics.map((topic) => (
+        {topics.map((topic,index) => (
           <li
-            key={topic}
+            key={index}
             className={`topic ${selectedTopic === topic ? 'selectedTopic' : ''}`}
             onClick={() => sendDataToParent(topic)}
           >

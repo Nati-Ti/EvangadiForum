@@ -3,6 +3,12 @@
   z-index: 1;
 }
 
+.Menu2{
+  position: fixed;
+  z-index: 1;
+  margin-left: -150px;
+}
+
 .dropdown__menu {
   /* background: transparent; */
   background-color: #F8F8F8;

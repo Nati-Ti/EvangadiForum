@@ -3,7 +3,7 @@ import './Menu.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../../Context/UserContext';
 
-function Menu() {
+function Menu({position}) {
 
   const [userData, setUserData] = useContext(UserContext);
 
@@ -25,7 +25,7 @@ function Menu() {
 
 
   return (
-    <div className='Menu'>
+    <div className={(position === 'right') ? 'Menu2' : 'Menu' }>
       <div className='dropdown__menu'>
           <p>Signed in as: {userData.user.display_name}</p>
           <Link to='/profile'>Profile</Link>
