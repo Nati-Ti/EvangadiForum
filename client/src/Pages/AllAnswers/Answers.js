@@ -18,24 +18,45 @@ function Answers() {
 
   const [answers, setAnswers] = useState([]);
   const [questionInfo, setQuestionInfo] = useState([]);
+  
+  const [answer, setAnswer] = useState({});
+  const [userData, setUserData] = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const [userQuestion, setUserQuestion] = useState(true);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
+
 
   useEffect(() => {
-    async function fetchQuestionInfo () {
-      await axios.get(`http://localhost:4000/api/questions/questionInfo?questionId=${questionId}`)
-        .then((res) => {setQuestionInfo(res.data)})
-        .catch((err) => {
-          console.log('problem ==>', err.response.data.msg);
-        });
-      
+    async function fetchQuestionInfo() {
+      try {
+        const response = await axios.get(`http://localhost:4000/api/questions/questionInfo?questionId=${questionId}`);
+        setQuestionInfo(response.data);
+      } catch (error) {
+        console.log('Error fetching question info:', error);
+      }
     }
-
+  
     fetchQuestionInfo();
   }, [questionId]);
 
+
+  
+  const checkUserQuestion = () => {
+    if (questionInfo && questionInfo.data && questionInfo.data.user_id === userData.user.id) {
+      setUserQuestion(true);
+    } else {
+      setUserQuestion(false);
+    }
+  };
+
+
   useEffect(() => {
+    checkUserQuestion();
+  }, [questionInfo, userData.user.id]);
 
+  useEffect(() => {
     async function fetchAnswers () {
-
       await axios.get(`http://localhost:4000/api/answers/getAllAnswers?questionId=${questionId}`)
         .then((res) => {setAnswers(res.data)})
         .catch((err) => {
@@ -45,12 +66,6 @@ function Answers() {
 
     fetchAnswers();
   }, []);
-
-
-  
-  const [answer, setAnswer] = useState({});
-  const [userData, setUserData] = useContext(UserContext);
-  const navigate = useNavigate();
 
 
   const handleReload = () => {
@@ -90,6 +105,13 @@ function Answers() {
     fetchAnswerCount();
   }, []);
 
+  const handleQuestionDelete = async () => {
+    await axios.delete(`http://localhost:4000/api/questions/delete?questionId=${questionId}`)
+    .then(() => setDeleteSuccess(true))
+    .then(() => navigate('/'))
+    .catch((err) => console.log("Unable to delete:", err));
+  }
+
 
   return (
     <div className='Answer'>
@@ -122,7 +144,17 @@ function Answers() {
             
           </div>
           
+          
         </div>
+
+        {!userQuestion ? 
+          "" : 
+          <div className='questionOperations'>
+            <div className='editQuestion'>Edit</div>
+            <div className='deleteQuestion' 
+              onClick={() => handleQuestionDelete()}>Delete</div>
+          </div>}
+        
       </div>
 
       <form className={display ? 'answer__form' : 'answer__formHide'}>

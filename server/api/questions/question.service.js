@@ -8,6 +8,7 @@ module.exports = {
 
 
   questionPost: (data, callback) => {
+    console.log(data);
     question.create({
       user_id: data.userId,
       question_title: data.title,
@@ -171,6 +172,20 @@ module.exports = {
     .catch(err => {
       callback(err);
     });
+  },
+
+  deleteQuestion: (quesId, callback) => {
+    question.destroy({
+      where: {
+        question_id: quesId
+      }
+    })
+      .then(results => {
+        callback('Question deleted successfully', results);
+      })
+      .catch((error) => {
+        console.log('Error deleting record:', error);
+      });
   },
 
 

@@ -1,5 +1,5 @@
 const { question } = require('../../config/sequelizeDB');
-const { questionPost, getAllQuestions, getQuestionsById, questionInfo, upVote, downVote } = require('./question.service');
+const { questionPost, getAllQuestions, getQuestionsById, questionInfo, upVote, downVote, deleteQuestion } = require('./question.service');
 
 
 module.exports = {
@@ -8,12 +8,18 @@ module.exports = {
   askQuestion: (req, res) => {
 
     const { title, description, userId } = req.body;
+    // const id = req.query.userId;
   
     if (!title || !description || !userId )
       return res.status(400).json({ msg: 'The question title and description fields are necessary!' });
   
     else {
-      questionPost(req.body, (err, questionPostResult) => {
+      const questionData = {
+        userId: userId,
+        title: title,
+        description: description,
+      };
+      questionPost(questionData, (err, questionPostResult) => {
         if (err) {
           console.log(err);
           return res.status(400).json({ msg: 'Database connection error!'});
@@ -120,5 +126,16 @@ module.exports = {
       });
     }
   },
+
+  questionDeletion: (req, res) => {
+    const quesId = req.query.questionId;
+    deleteQuestion(quesId, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({msg: 'Database connection error!'});
+      }
+      return res.status(200).json({ msg: results});
+    })
+  }
   
 }

@@ -166,3 +166,30 @@
 .answer__post:hover{
   background-color: #FE8402;
 }
+
+.questionOperations {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.editQuestion, .deleteQuestion{
+  margin: 0px 10px;
+}
+
+.editQuestion{
+  color: #FE8402;
+}
+
+.deleteQuestion{
+  color: brown;
+}
+
+.editQuestion:hover{
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.deleteQuestion:hover{
+  font-weight: bold;
+  cursor: pointer;
+}
