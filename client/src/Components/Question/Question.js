@@ -68,18 +68,25 @@ function Question({userId, title, description, questionId, userName, profFileNam
       </div>
       
       <Link to={`/question/allanswers?questId=${questionId}`} className='question__content'>
+        <div className='question__content__main'>
+          <h3>{truncate(title, 80)}</h3>
+            <p>{truncate(description, 170)}</p>
 
-        <h3>{truncate(title, 80)}</h3>
-        <p>{truncate(description, 170)}</p>
-
-        <div className='timeAndNum__wrapper'>
-          <div className='timeLapsed__wrapper'>
-            <TimeLapsed createdAt={createdAt}/></div>
-          <div className='numOfAnswers'>{answerCount} answer</div>
+          <div className='timeAndNum__wrapper'>
+              <div className='timeLapsed__wrapper'>
+                <TimeLapsed createdAt={createdAt}/></div>
+              <div className='numOfAnswers'>{answerCount} answer</div>
+          </div>
         </div>
+          
         
+        <div className='forwardIcon'>
+        <ArrowForwardIosIcon />
+        </div>
       </Link>
-      <ArrowForwardIosIcon className='forwardIcon'/>
+
+      
+      
       
     </div>
   )

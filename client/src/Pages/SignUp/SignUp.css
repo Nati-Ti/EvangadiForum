@@ -17,6 +17,7 @@
 
 .signup__haveAcc a{
   color: #DA7000;
+  text-decoration: none;
 }
 
 .signup__form{
@@ -91,6 +92,7 @@
 
 .signup__terms a{
   color: #DA7000;
+  text-decoration: none;
 }
 
 .signup__terms a:last-child{

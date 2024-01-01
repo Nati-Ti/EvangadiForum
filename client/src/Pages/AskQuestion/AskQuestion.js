@@ -26,7 +26,7 @@ function AskQuestion() {
       //     // .then(response => response.json())
       //     // .then(data => this.setState({ postId: data.id }));
           
-        await axios.post('http://localhost:4000/api/questions', questionForm);
+        await axios.post(`http://localhost:4000/api/questions`, questionForm);
 
         navigate("/");
     } catch (error) {

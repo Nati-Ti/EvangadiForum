@@ -21,15 +21,22 @@
 }
 
 .welcome__wrapper button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 200px;
   margin-top: 20px;
   border: none;
   border-radius: 5px;
-  height: 45px;
+  height: 40px;
   color: white;
   font-size: 14px;
   font-weight: 700;
   background-color: #516CF0;
+}
+
+.welcome__wrapper a {
+  text-decoration: none;
 }
 
 .welcome__wrapper button:hover{
@@ -55,17 +62,21 @@
   /* border-bottom: 1px solid #DDDDDD; */
 }
 
+.welcome__wrapper h2{
+  margin-right: 10px;
+}
+
 .question__search {
   display: flex;
   /* flex-direction: column; */
   align-items: center;
   /* justify-content: center;0 */
   width: 25%;
-  margin-top: 35px;
+  margin-top: 30px;
 }
 
 .question__search input{
-  padding: 5px 20px;
+  padding: 5px 20px 5px 10px;
   width: 100%;
   border: 1px solid #a19e9e;
   border-radius: 5px;
