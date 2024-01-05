@@ -8,7 +8,6 @@ module.exports = {
 
 
   questionPost: (data, callback) => {
-    console.log(data);
     question.create({
       user_id: data.userId,
       question_title: data.title,
@@ -172,6 +171,24 @@ module.exports = {
     .catch(err => {
       callback(err);
     });
+  },
+  
+  updateQuestion: (data, callback) => {
+    question.update(
+      {
+        question_title: data.title,
+        question_description: data.description
+      },
+      {
+        where: { question_id: data.questionId, user_id: data.userId }
+      }
+    )
+      .then(result =>
+        callback(null,result)
+      )
+      .catch(err =>
+        callback(err)
+      );
   },
 
   deleteQuestion: (quesId, callback) => {

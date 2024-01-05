@@ -6,7 +6,7 @@ const sequelize = new Sequelize(
   process.env.DB_USER,
   process.env.DB_PASS,
   {
-  host: 'localhost',
+  host: process.env.DB_HOST,
   dialect: 'mysql',
 });
 
@@ -92,6 +92,14 @@ const question = sequelize.define('question', {
     autoIncrement: true,
     primaryKey: true,
   },
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: registration,
+      key: 'user_id',
+    },
+  },
   question_title: {
     type: DataTypes.STRING(500),
     allowNull: false,
@@ -117,14 +125,6 @@ const question = sequelize.define('question', {
   post_id: {
     type: DataTypes.STRING(255),
   },
-  user_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: registration,
-      key: 'user_id',
-    },
-  },
 }, {
   tableName: 'question',
 });
@@ -134,21 +134,6 @@ const answer = sequelize.define('answer', {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
-  },
-  answer: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  upvotes: {
-    type: DataTypes.JSON,
-    defaultValue: [],
-  },
-  downvotes: {
-    type: DataTypes.JSON,
-    defaultValue: [],
-  },
-  answer_code_base: {
-    type: DataTypes.TEXT,
   },
   user_id: {
     type: DataTypes.INTEGER,
@@ -165,6 +150,21 @@ const answer = sequelize.define('answer', {
       model: question,
       key: 'question_id',
     },
+  },
+  answer: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  upvotes: {
+    type: DataTypes.JSON,
+    defaultValue: [],
+  },
+  downvotes: {
+    type: DataTypes.JSON,
+    defaultValue: [],
+  },
+  answer_code_base: {
+    type: DataTypes.TEXT,
   },
 }, {
   tableName: 'answer',
@@ -210,12 +210,13 @@ const bookmark = sequelize.define('bookmark', {
   answer.belongsTo(question, { foreignKey: 'question_id' });
   question.hasMany(answer, { foreignKey: 'question_id' });
 
-  profile.belongsToMany(question, { through: 'bookmark', foreignKey: 'user_id' });
-  question.belongsTo(profile, { through: 'bookmark', 
-  foreignKey: 'question_id' });
+  question.belongsTo(profile, {foreignKey: 'user_id'});
+  profile.hasMany(question, {foreignKey: 'user_id'});
 
-  // question.belongsTo(profile, {foreignKey: 'user_id'});
-  // profile.hasMany(question, {foreignKey: 'user_id'});
+  // profile.belongsToMany(question, { through: 'bookmark', foreignKey: 'user_id' });
+  // question.belongsTo(profile, { through: 'bookmark', 
+  // foreignKey: 'question_id' });
+  
 
   // Sync the models with the database
 sequelize.sync({ force: false })

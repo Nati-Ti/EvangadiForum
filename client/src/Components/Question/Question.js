@@ -66,7 +66,7 @@ function Question({userId, title, description, questionId, userName, profFileNam
         upvotes={upvotes}
         downvotes={downvotes} />
       </div>
-      
+
       <Link to={`/question/allanswers?questId=${questionId}`} className='question__content'>
         <div className='question__content__main'>
           <h3>{truncate(title, 80)}</h3>
@@ -85,9 +85,6 @@ function Question({userId, title, description, questionId, userName, profFileNam
         </div>
       </Link>
 
-      
-      
-      
     </div>
   )
 }
