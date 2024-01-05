@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from '../../Context/UserContext';
 import Question from '../../Components/Question/Question';
 import Topic from '../../Components/Topic/Topic';
-// import axios from 'axios';
+import axios from 'axios';
 
 
 const Home = () => {
@@ -18,19 +18,18 @@ const Home = () => {
 
   // const [topic, setTopic] = useState('');
   const navigate = useNavigate();
-
-  async function fetchQuestions() {
-    // await axios.get('http://localhost:4000/api/questions')
-    fetch('http://localhost:4000/api/questions')
-      .then(response => response.json())
-      .then((res) => {
-        setQuestions(res.data); 
-        setFilteredQuestions(res.data);})
-      .catch((err) => {
-        console.log('problem ==>', err.response.msg);
-      });
-  }
+  
   useEffect(() => {
+    async function fetchQuestions() {
+      // fetch('http://localhost:4000/api/questions')
+      await axios.get('http://localhost:4000/api/questions')
+        .then((res) => {
+          setQuestions(res.data.data); 
+          setFilteredQuestions(res.data.data);})
+        .catch((err) => {
+          console.log('problem ==>', err.response.msg);
+        });
+    }
     fetchQuestions();
   }, []);
 
@@ -92,24 +91,28 @@ const Home = () => {
           </div>
         </div>
         
-        {!noMatch ?
-        filteredQuestions?.map((ques) => (
-            <Question
-              title={ques.question_title}
-              description={ques.question_description}
-              userId={ques.registration.user_id}
-              userName={ques.registration.user_name}
-              questionId={ques.question_id}
-              profFileName={ques.profile.profile_picture}
-              upvotes={ques.upvotes}
-              downVotes={ques.downVotes}
-              createdAt={ques.createdAt}
-              key={ques.question_id}
-            />
-          )) :
-          <div className='noMatch'><h2>No match found!</h2></div>
-          }
+        <div className='questions__list'>
+          {!noMatch ?
+          filteredQuestions.map((ques) => (
+              <Question
+                title={ques.question_title}
+                description={ques.question_description}
+                userId={ques.registration.user_id}
+                userName={ques.registration.user_name}
+                questionId={ques.question_id}
+                profFileName={ques.profile.profile_picture}
+                upvotes={ques.upvotes}
+                downVotes={ques.downVotes}
+                createdAt={ques.createdAt}
+                key={ques.question_id}
+              />
+            )) :
+            <div className='noMatch'><h2>No match found!</h2></div>
+            }
+
+        </div>
         
+        {/* <div>No Question Asked!</div> */}
       </div>
     </div>
   )

@@ -54,7 +54,10 @@
 
 .login__inputs input:focus{
   outline: none;
-  border-bottom: 3px solid #FE8402;
+  border-bottom: 2px solid #FE8402;
+  /* transform-origin: left; */
+  -webkit-transition: 1s ease;
+  transition: 1s ease;
 }
 
 .email__input, .pass__input{

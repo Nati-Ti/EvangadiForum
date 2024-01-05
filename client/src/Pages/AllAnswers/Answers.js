@@ -6,54 +6,56 @@ import axios from 'axios';
 import { UserContext } from '../../Context/UserContext';
 import Vote from '../../Components/Vote/Vote';
 import TimeLapsed from '../../Components/TimeLapsed/TimeLapsed';
+import EditQuestion from '../../Components/EditQuestion/EditQuestion';
 
 function Answers() {
 
+  const [userData, setUserData] = useContext(UserContext);
   // Get the location object using useLocation
   const location = useLocation();
   // Create a URLSearchParams object from the location search string
   const searchParams = new URLSearchParams(location.search);
   // Get the value of the 'q' query parameter
   const questionId = searchParams.get('questId');
+  const userId = userData.user ? userData.user.id : null;
 
   const [answers, setAnswers] = useState([]);
   const [questionInfo, setQuestionInfo] = useState([]);
   
   const [answer, setAnswer] = useState({});
-  const [userData, setUserData] = useContext(UserContext);
   const navigate = useNavigate();
 
   const [userQuestion, setUserQuestion] = useState(true);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
 
+  const [editSection, setEditSection] = useState(false);
+  const [reloadCount, setReloadCount] = useState(0);
+
+
+  async function fetchQuestionInfo() {
+    try {
+      const response = await axios.get(`http://localhost:4000/api/questions/questionInfo?questionId=${questionId}`);
+      setQuestionInfo(response.data);
+    } catch (error) {
+      console.log('Error fetching question info:', error);
+    }
+  }
 
   useEffect(() => {
-    async function fetchQuestionInfo() {
-      try {
-        const response = await axios.get(`http://localhost:4000/api/questions/questionInfo?questionId=${questionId}`);
-        setQuestionInfo(response.data);
-      } catch (error) {
-        console.log('Error fetching question info:', error);
-      }
-    }
-  
     fetchQuestionInfo();
-  }, [questionId]);
-
-
-  
-  const checkUserQuestion = () => {
-    if (questionInfo && questionInfo.data && questionInfo.data.user_id === userData.user.id) {
-      setUserQuestion(true);
-    } else {
-      setUserQuestion(false);
-    }
-  };
-
+  }, [reloadCount,questionId]);
 
   useEffect(() => {
+    const checkUserQuestion = () => {
+      if (questionInfo && questionInfo.data && questionInfo.data.user_id === userData.user.id) {
+        setUserQuestion(true);
+      } else {
+        setUserQuestion(false);
+      }
+    };
+    
     checkUserQuestion();
-  }, [questionInfo, userData.user.id]);
+  }, [questionInfo, userId]);
 
   useEffect(() => {
     async function fetchAnswers () {
@@ -65,8 +67,7 @@ function Answers() {
     }
 
     fetchAnswers();
-  }, []);
-
+  }, [questionId]);
 
   const handleReload = () => {
     window.location.reload();
@@ -105,6 +106,17 @@ function Answers() {
     fetchAnswerCount();
   }, []);
 
+  const handleEdit = async () => {
+    setEditSection(true);
+  }
+  const handleCancelEdit = () => {
+    setEditSection(false);
+  };
+
+  const handleReloadCount = () => {
+    setReloadCount((prevCount) => prevCount + 1);
+  }
+
   const handleQuestionDelete = async () => {
     await axios.delete(`http://localhost:4000/api/questions/delete?questionId=${questionId}`)
     .then(() => setDeleteSuccess(true))
@@ -118,9 +130,16 @@ function Answers() {
       <div className='questionAsked'>
         <div className='questionAns__wrapper'>
           
-          <h2>Question</h2>
+          <div className='questionAns__header'>
+            <h2 className='questionAns__title'>Question</h2>
+            <button onClick={() => {handleDisplay()}} className='answerButton'>{display ? 'Hide' : "Answer"}</button>
+          </div>
           
-          <button onClick={handleDisplay} className='answerButton'>{display ? 'Hide' : "Answer"}</button>
+          {!editSection ? "" : <EditQuestion 
+          handleEditSection={handleCancelEdit} 
+          questionInfo={questionInfo.data}
+          reloadCountHandler={handleReloadCount} />}
+
         </div>
         <div className='voteQuestion__wrapper'>
           <div className='vote__wrap'>
@@ -150,10 +169,12 @@ function Answers() {
         {!userQuestion ? 
           "" : 
           <div className='questionOperations'>
-            <div className='editQuestion'>Edit</div>
+            <div className='editQuestion'
+            onClick={() => handleEdit()}>Edit</div>
             <div className='deleteQuestion' 
               onClick={() => handleQuestionDelete()}>Delete</div>
-          </div>}
+          </div>
+        }
         
       </div>
 

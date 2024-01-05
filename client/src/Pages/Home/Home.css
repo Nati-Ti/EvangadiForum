@@ -56,6 +56,10 @@
   margin-bottom: 50px; 
 }
 
+.questions__list{
+  width: 100%;
+}
+
 .questionsAsked h2{
   padding-bottom: 5px;
   margin-bottom: 0px;

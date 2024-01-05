@@ -1,0 +1,21 @@
+.editQuestion{
+  /* width: 100%; */
+}
+
+.question__save{
+  width: 200px;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 5px;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: #516CF0;
+  align-self: flex-end;
+  margin-left: -15px;
+}
+
+.question__save:hover{
+  cursor: pointer;
+  background-color: #FE8402;
+}

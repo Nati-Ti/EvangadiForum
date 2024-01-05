@@ -8,17 +8,22 @@
 
 .questionAns__wrapper{
   width: 100%;
+  /* display: flex; */
+  justify-content: space-between;
+}
+
+.questionAns__header{
   display: flex;
   justify-content: space-between;
 }
 
-.questionAns__wrapper h2 {
+.questionAns__title {
   /* margin-bottom: ; */
   padding-bottom: 5px;
   width: 85%;
   border-bottom: 1px solid #DDDDDD;
-  margin-bottom: 0px;
-}
+  /* margin-bottom: 0px; */
+} 
 
 .vote__wrap {
   width: 7%;
@@ -85,6 +90,7 @@
 }
 
 .answerButton:hover{
+  cursor: pointer;
   background-color: #FE8402;
 }
 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import './Header.css'
 import { Link } from 'react-router-dom'
 import { UserContext } from '../../Context/UserContext';
@@ -6,20 +6,28 @@ import Menu from '../Menu/Menu';
 import axios from 'axios';
 import evanLogo from '../../Assets/evanLogo.jpg';
 import { LuMenu } from "react-icons/lu";
-import MenuIcon from '@mui/icons-material/Menu';
 
 
 function Header() {
   
   const [userData, setUserData] = useContext(UserContext);
+  const isMounted = useRef(false);
   const [ menuDropdown, setMenuDropdown ] = useState(false);
   const [profilePicture, setProfilePicture] = useState();
+  const userId = userData.user ? userData.user.id : null;
 
   useEffect(() => {
+
+      // Skip the effect on initial component mount
+      if (!isMounted.current) {
+        isMounted.current = true;
+        return;
+      }
+
     const fetchProfilePicture = async () => {
       try {
         // console.log(userData.user.id);
-        const response = await axios.get(`http://localhost:4000/api/uploads/userProfilePic?userId=${userData.user?.id}`, {
+        const response = await axios.get(`http://localhost:4000/api/uploads/userProfilePic?userId=${userId}`, {
           responseType: 'blob', // Ensure binary response
         });
         const reader = new FileReader();
@@ -33,7 +41,7 @@ function Header() {
     };
 
     fetchProfilePicture();
-  }, [[],userData.profileUpdate]);
+  }, [userData, userData.profileUpdate]);
 
   const handleDropdown = () => {
     setMenuDropdown(true);
@@ -85,8 +93,8 @@ function Header() {
           ) : (
             <div
               className={`${show ? 'userProfileSmall' : 'user__profile'}`}
-              onMouseEnter={handleDropdown}
-              onMouseLeave={hideDropdown}
+              onMouseEnter={() => handleDropdown()}
+              onMouseLeave={() => hideDropdown()}
             >
               {show ? <LuMenu className='menuIcon' fontSize='larger' /> : (
                 <img

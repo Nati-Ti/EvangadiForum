@@ -26,8 +26,18 @@ module.exports = {
     }
   },
 
+  // getProfilePicture: (filename) => {
+  //   const filePath = path.join(__dirname, '../../../uploads', filename);
+  //   return filePath;
+  // }
   getProfilePicture: (filename) => {
-    const filePath = path.join(__dirname, '../../../uploads', filename);
-    return filePath;
-  }
+    if (filename) {
+        const filePath = path.join(__dirname, '../../../uploads', filename);
+        return filePath;
+    } else {
+        return 'default-profile-picture.jpg'; 
+        // Change this to the default image or handle it accordingly
+    }
+}
+
 }
