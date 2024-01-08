@@ -45,6 +45,7 @@
 }
 
 .submit__passwordChange:hover {
+  cursor: pointer;
   background-color: #1193a7;
   color: #DDDDDD;
 }

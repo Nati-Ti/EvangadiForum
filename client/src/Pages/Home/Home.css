@@ -52,8 +52,7 @@
 .questionsAsked{
   margin-top: 30px;
   width: 65%;
-  margin: 0px auto;
-  margin-bottom: 50px; 
+  margin: 0px auto !important;
 }
 
 .questions__list{
@@ -114,4 +113,34 @@
 .noMatch {
   color: #a19e9e;
   border-top: 1px solid #DDDDDD;
+}
+
+.pagination{
+  display: flex;
+  margin: 0px auto;
+  justify-content: flex-end;
+  width: 65%;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+
+
+.fade-item {
+  transition: 2s all ease-in-out;
+  opacity: 0;
+}
+
+.fadein {
+  animation: fadeIn 0.9s 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
 }

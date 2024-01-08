@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import './App.css';
 import { UserContext } from './Context/UserContext';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import SignUp from './Pages/SignUp/SignUp';
 import Login from './Pages/Login/Login';
@@ -49,19 +49,37 @@ function App() {
 
   return (
     <Router>
-      <Header />
-      <Routes>     
-        <Route path="/login" element={ <Login/> } />
-        <Route path="/signup" element={ <SignUp/> } />
-        <Route path="/askQuestion" element={ <AskQuestion/> } />
-        <Route path="/myQuestion" element={ <MyQuestion/> } />
-        <Route path="/question/allanswers" element={ <Answers/> } />
-        <Route path="/question/answer" element={ <Answer/> } />
-        <Route path="/profile" element={ <UserProfile /> } />
-        <Route path="/" element={ <Home/> } />
-      </Routes>
-      <Footer/>
-    </Router>
+  <Header />
+  <Routes>
+    <Route path="/signup" element={<SignUp />} />
+
+    <Route path="/askQuestion" element={
+        userData.user ? (<AskQuestion />) : (
+          <Navigate to="/login" replace />)}/>
+    
+    <Route path="/myQuestion" element={
+        userData.user ? (<MyQuestion />) : (
+          <Navigate to="/login" replace />)}/>
+    
+    <Route path="/question/allanswers" element={
+        userData.user ? (<Answers />) : (
+          <Navigate to="/login" replace />)}/>
+
+    <Route path="/question/answer" element={
+        userData.user ? (<Answer />) : (
+          <Navigate to="/login" replace />)}/>
+
+    <Route path="/profile" element={
+        userData.user ? (<UserProfile />) : (
+          <Navigate to="/login" replace />)}/>
+
+    <Route path="/login" element={<Login />} />
+    <Route path="/" element={
+        userData.user ? (<Home />) : (
+          <Navigate to="/login" replace />)}/>
+  </Routes>
+  <Footer />
+</Router>
   );
 }
 

@@ -29,6 +29,7 @@
 }
 
 .upVote:hover, .downVote:hover {
+  cursor: pointer;
   color: #2D358E;
 }
 

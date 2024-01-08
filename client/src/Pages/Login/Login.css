@@ -80,6 +80,7 @@
 }
 
 .login__inputs button:hover{
+  cursor: pointer;
   background-color: #DA7000;
   cursor: pointer;
 }

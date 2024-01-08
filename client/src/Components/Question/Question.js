@@ -69,8 +69,8 @@ function Question({userId, title, description, questionId, userName, profFileNam
 
       <Link to={`/question/allanswers?questId=${questionId}`} className='question__content'>
         <div className='question__content__main'>
-          <h3>{truncate(title, 80)}</h3>
-            <p>{truncate(description, 170)}</p>
+          <h3>{truncate(title, 75)}</h3>
+          <p>{truncate(description, 170)}</p>
 
           <div className='timeAndNum__wrapper'>
               <div className='timeLapsed__wrapper'>

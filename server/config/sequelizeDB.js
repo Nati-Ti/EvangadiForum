@@ -1,14 +1,16 @@
 
 const { Sequelize, DataTypes  } = require('sequelize');
 
-const sequelize = new Sequelize(
-  process.env.MYSQL_DB,
-  process.env.DB_USER,
-  process.env.DB_PASS,
-  {
-  host: process.env.DB_HOST,
-  dialect: 'mysql',
-});
+// const sequelize = new Sequelize(
+//   process.env.MYSQL_DB,
+//   process.env.DB_USER,
+//   process.env.DB_PASS,
+//   {
+//   host: process.env.DB_HOST,
+//   dialect: 'mysql',
+// });
+
+const sequelize = new Sequelize(`mysql://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.MYSQL_DB}?ssl-mode=REQUIRED`);
 
 // Test the database connection
 sequelize.authenticate()

@@ -57,7 +57,7 @@ function Vote({instanceId, upvotes, route, downvotes, style}) {
     const upvotesCount = upvotes ? upvotes.length : 0;
     const downvotesCount = downvotes ? downvotes.length : 0;
     const newVote = upvotesCount - downvotesCount;
-    setVote(newVote);
+    setVote(newVote<0 ? 0 : newVote);
     checkVote();
   }, [upvotes, downvotes]);
   

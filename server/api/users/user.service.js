@@ -18,6 +18,22 @@ module.exports = {
     });
   },
 
+  passwordChange: (data, callback) => {
+    registration.update(
+      {
+        user_password: data.newPassword
+      },
+      {
+        where: { user_id: data.userId }
+      })
+      .then(results => {
+        callback(null, results);
+      })
+      .catch(err => {
+        callback(err);
+      });
+  },
+
   profile: (data, callback) => {
     profile.create({
       user_id: data.userId,
@@ -55,6 +71,20 @@ module.exports = {
     .catch(err => {
         callback(err);
     });
+  },
+
+  getUserById: (userId, callback) => {
+    registration.findOne({
+      where: {
+        user_id: userId
+      }
+    })
+    .then(result => {
+      callback(null, result);
+  })
+  .catch(err => {
+      callback(err);
+  });
   },
 
   getAllUsers: (callback) => {

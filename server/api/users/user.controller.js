@@ -1,4 +1,4 @@
-const {register, profile, userById, getAllUsers, getUserByEmail, profileInfoById, updateProfile} = require('./user.service');
+const {register, profile, userById, getAllUsers, getUserByEmail, profileInfoById, updateProfile, getUserById, passwordChange} = require('./user.service');
 
 // const pool = require('../../config/database');
 const bcrypt = require('bcryptjs');
@@ -140,19 +140,71 @@ module.exports = {
 
     const { id, bio, occupation, location, birthday, url } = req.body;
   
-    if ( !id || !bio || !url || !location || !occupation || !birthday)
+    if ( id || bio || url || location || occupation || birthday){
+      updateProfile(req.body, (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ msg: 'Database connection error!' });
+        }
+        return res.status(200).json({
+          msg: 'Profile Information updated successfully!',
+          // data: results
+        });
+      });
+    }else {
+      return res.status(400).json({ msg: 'No field has been provided!' });
+    }
+  },
+
+  changeSecurity: (req, res) => {
+
+    const { currentPassword, newPassword, confirmPassword, userId } = req.body;
+  
+    if (!userId || !currentPassword || !newPassword || !confirmPassword)
       return res.status(400).json({ msg: 'Not all fields have been provided!' });
-    
-    updateProfile(req.body, (err, results) => {
+    if (newPassword.length < 8 || confirmPassword.length < 8)
+      return res.status(400).json({ msg: 'Password must be at least 8 characters!' });
+
+    getUserById(userId, (err, results) => {
+      if (err) {
+          console.log(err);
+          res.status(500).json({ msg: "database connection err" })
+      }
+      if (!results) {
+          return res
+              .status(404)
+              .json({ msg: "No account with this email has been registered" })
+      }
+
+      //check provided password by the user with the encrypted password from database
+      const isMatch = bcrypt.compareSync(currentPassword, results.user_password);
+      if (!isMatch){
+        return res
+          .status(404)
+          .json({ msg: "Invalid Credentials" })
+      }
+    })
+
+    if(!(newPassword === confirmPassword)){
+      return res.status(400).json({ msg: 'Please confirm the new password correctly!' });
+    }
+
+    const salt = bcrypt.genSaltSync();
+    req.body.newPassword = bcrypt.hashSync(newPassword, salt);
+    req.body.confirmPassword = bcrypt.hashSync(confirmPassword, salt);
+
+    passwordChange(req.body, (err, updateResults) => {
       if (err) {
         console.log(err);
-        return res.status(500).json({ msg: 'Database connection error!' });
+        return res.status(400).json({ msg: 'Database connection error!' });
       }
       return res.status(200).json({
-        msg: 'Profile Information updated successfully!',
-        // data: results
+        msg: 'Account Security Has been Changed!',
+        data: updateResults
       });
-    });
+    })
+
+
   },
 
 }

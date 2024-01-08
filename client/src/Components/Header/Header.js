@@ -11,38 +11,13 @@ import { LuMenu } from "react-icons/lu";
 function Header() {
   
   const [userData, setUserData] = useContext(UserContext);
-  const isMounted = useRef(false);
+  // const isMounted = useRef(false);
   const [ menuDropdown, setMenuDropdown ] = useState(false);
   const [profilePicture, setProfilePicture] = useState();
-  const userId = userData.user ? userData.user.id : null;
+  
+  // const isMountedRef = useRef(false);
 
-  useEffect(() => {
-
-      // Skip the effect on initial component mount
-      if (!isMounted.current) {
-        isMounted.current = true;
-        return;
-      }
-
-    const fetchProfilePicture = async () => {
-      try {
-        // console.log(userData.user.id);
-        const response = await axios.get(`http://localhost:4000/api/uploads/userProfilePic?userId=${userId}`, {
-          responseType: 'blob', // Ensure binary response
-        });
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setProfilePicture(reader.result);
-        };
-        reader.readAsDataURL(response.data);
-      } catch (error) {
-        console.log('Error:', error);
-      }
-    };
-
-    fetchProfilePicture();
-  }, [userData, userData.profileUpdate]);
-
+  
   const handleDropdown = () => {
     setMenuDropdown(true);
   }
@@ -69,7 +44,29 @@ function Header() {
         };
     }, []);
 
+    useEffect(() => {
 
+      const fetchProfilePicture = async () => {
+        try {
+          // console.log(userData.user.id);
+          const response = await axios.get(`http://localhost:4000/api/uploads/userProfilePic?userId=${userData.user.id}`, {
+            responseType: 'blob', // Ensure binary response
+          });
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setProfilePicture(reader.result);
+          };
+          reader.readAsDataURL(response.data);
+        } catch (error) {
+          console.log('Error:', error);
+        }
+      };
+  
+      const timeoutId = setTimeout(fetchProfilePicture, 1000);
+
+      // clearTimeout(timeoutId);
+    }, [userData, userData.profileUpdate]);
+  
   
   return (
     <div className={` ${show ? 'headerSmallSize' : 'Header'}`}>

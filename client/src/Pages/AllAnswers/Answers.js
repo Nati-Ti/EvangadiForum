@@ -31,7 +31,6 @@ function Answers() {
   const [editSection, setEditSection] = useState(false);
   const [reloadCount, setReloadCount] = useState(0);
 
-
   async function fetchQuestionInfo() {
     try {
       const response = await axios.get(`http://localhost:4000/api/questions/questionInfo?questionId=${questionId}`);
@@ -124,7 +123,6 @@ function Answers() {
     .catch((err) => console.log("Unable to delete:", err));
   }
 
-
   return (
     <div className='Answer'>
       <div className='questionAsked'>
@@ -172,13 +170,13 @@ function Answers() {
             <div className='editQuestion'
             onClick={() => handleEdit()}>Edit</div>
             <div className='deleteQuestion' 
-              onClick={() => handleQuestionDelete()}>Delete</div>
+              onClick={handleQuestionDelete}>Delete</div>
           </div>
         }
         
       </div>
 
-      <form className={display ? 'answer__form' : 'answer__formHide'}>
+      <form onSubmit={handleSubmit} className={display ? 'answer__form' : 'answer__formHide'}>
         <h2>Answer The Top Question</h2>
         <p>Go to Question page</p>
         <textarea 
@@ -187,7 +185,7 @@ function Answers() {
             name="answer"
             onChange={handleChange}
             placeholder="Your Answer..."/>
-        <button onClick={handleSubmit} className='answer__post'>Post Your Answer</button>
+        <button className='answer__post'>Post Your Answer</button>
       </form>
       
       <div className='previous__answers'>

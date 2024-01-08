@@ -55,6 +55,7 @@
 }
 
 .delete__account:hover {
+  cursor: pointer;
   background-color: #C82333;
   color: #DDDDDD;
 }

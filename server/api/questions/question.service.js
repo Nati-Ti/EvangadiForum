@@ -46,6 +46,34 @@ module.exports = {
       });
   },
 
+  getSomeQuestion: (limit, offset, callback) => {
+    question
+      .findAll({
+        include: [
+          {
+            model: registration,
+            attributes: ['user_id', 'user_name'],
+            required: false,
+          },
+          {
+            model: profile,
+            attributes: ['user_profile_id', 'profile_picture'],
+            required: false,
+            where: { user_id: sequelize.col('question.user_id') },
+          },
+        ],
+        order: [['createdAt', 'DESC']],
+        limit,
+        offset,
+      })
+      .then((results) => {
+        callback(null, results);
+      })
+      .catch((err) => {
+        callback(err);
+      });
+  },
+
   getQuestionsById: (id, callback) => {
     question.findAll({
       where: { user_id: id },
@@ -204,6 +232,17 @@ module.exports = {
         console.log('Error deleting record:', error);
       });
   },
+
+  numOfQuestions: (callback) => {
+    question.count()
+    .then(results => {
+      callback(null, results);
+    })
+    .catch(err => {
+      callback(err);
+    });
+  }
+
 
 
 

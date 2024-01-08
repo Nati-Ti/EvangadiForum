@@ -16,7 +16,7 @@ function Menu({position}) {
       });
 
       localStorage.removeItem('auth-token');
-      navigate('/login');
+      // window.location.reload();
     };
 
     useEffect(() => {

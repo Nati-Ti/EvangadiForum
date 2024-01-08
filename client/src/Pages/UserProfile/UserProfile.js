@@ -28,9 +28,6 @@ function UserProfile() {
     
     fetchProfileInfo();
   }, []);
-  // console.log(userProfile.data);
-
-  // console.log(profInfo);
 
   let props = {};
   const [component, setComponent] = useState(<ProfileInfo {...props}/>);
@@ -46,12 +43,13 @@ function UserProfile() {
         url: userProfile.data?.url,
         occupation: userProfile.data?.occupation,
         location: userProfile.data?.location,
-        birthDay: userProfile.data?.birth_date,
+        birthDay: userProfile.data?.birth_date ? userProfile.data?.birth_date.slice(0, 10) : "",
       };
 
       setComponent(<ProfileInfo {...props} />);
     }
   }, [userProfile]);
+
 
   const handleProfileInfo = () => {
     fetchProfileInfo();

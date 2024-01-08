@@ -1,5 +1,5 @@
 const { question } = require('../../config/sequelizeDB');
-const { questionPost, getAllQuestions, getQuestionsById, questionInfo, upVote, downVote, deleteQuestion, updateQuestion } = require('./question.service');
+const { questionPost, getAllQuestions, getQuestionsById, questionInfo, upVote, downVote, deleteQuestion, updateQuestion, getSomeQuestion, numOfQuestions } = require('./question.service');
 
 
 module.exports = {
@@ -34,6 +34,28 @@ module.exports = {
 
   getQuestions: (req, res) => {
     getAllQuestions((err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({msg: 'Database connection error!'});
+      }
+      return res.status(200).json({ data: results});
+    })
+  },
+
+  getSomeQuestions: (req, res) => {
+    const limit = parseInt(req.query.limit);
+    const offset = parseInt(req.query.offset);
+
+    if(!limit && !offset) {
+      getAllQuestions((err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({msg: 'Database connection error!'});
+        }
+        return res.status(200).json({ data: results});
+      })
+    }
+    getSomeQuestion(limit, offset, (err, results)=> {
       if (err) {
         console.log(err);
         return res.status(500).json({msg: 'Database connection error!'});
@@ -157,6 +179,16 @@ module.exports = {
       }
       return res.status(200).json({ msg: results});
     })
-  }
+  },
+
+  totalQuestions: (req, res) => {
+    numOfQuestions((err, results) => {
+      if (err) {
+        console.log(err); 
+        return res.status(500).json({ msg: 'Database connection error!' });
+      }
+      return res.status(200).json({ data: results });
+    });
+  },
   
 }

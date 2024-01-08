@@ -26,7 +26,7 @@ function Answer() {
   }, [answerId]);
   // console.log(answerId);
   // console.log(answer?.data.question.question_title);
-
+  
   return (
     <div className='Answer'>
       <div className='answer__wrapper'>

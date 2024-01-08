@@ -89,5 +89,6 @@
 }
 
 .question__post:hover{
+  cursor: pointer;
   background-color: #FE8402;
 }

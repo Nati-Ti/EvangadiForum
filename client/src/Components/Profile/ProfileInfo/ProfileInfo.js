@@ -125,7 +125,7 @@ function ProfileInfo({userId, fName, lName, bio, url, occupation, location, birt
           {(!error && successShow) ?
             <div className='profInfoUpdate__success'>
               <img src='https://icons.veryicon.com/png/o/miscellaneous/8atour/success-35.png' alt='successIcon' />
-              <p>Profile picture update successful!</p>
+              <p>Profile update successful!</p>
             </div>
             : null
           }
