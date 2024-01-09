@@ -3,6 +3,7 @@ import './Answer.css';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import Vote from '../../Components/Vote/Vote';
+import Loading from '../../Components/Loading/Loading';
 
 
 function Answer() {
@@ -14,18 +15,18 @@ function Answer() {
   const answerId = searchParams.get('ansId');
 
   const [ answer, setAnswer ] = useState();
+  const [ loading, setLoading ] = useState(false);
 
+  const fetchAnswer = async () => {
+    await axios.get(`http://localhost:4000/api/answers/question/answer?ansId=${answerId}`)
+    .then((res) => setAnswer(res?.data))
+    .then(() => setLoading(false))
+    .catch((err) => console.log(err));
+  }
   useEffect(() => {
-    const fetchAnswer = async () => {
-      await axios.get(`http://localhost:4000/api/answers/question/answer?ansId=${answerId}`)
-      .then((res) => setAnswer(res?.data))
-      .catch((err) => console.log(err));
-    }
-
+    setLoading(true);
     fetchAnswer();
   }, [answerId]);
-  // console.log(answerId);
-  // console.log(answer?.data.question.question_title);
   
   return (
     <div className='Answer'>
@@ -34,6 +35,11 @@ function Answer() {
           <div className='question__header'>
             <h2>Question</h2>
           </div>
+          {loading ? 
+          <div className='answerLoading'>
+            <Loading loading={loading}/>
+          </div>
+          :
           <div className='question__wrapper' >
             <div className='question__descr'>
               <h4>{answer?.data.question.question_title}</h4>
@@ -49,10 +55,16 @@ function Answer() {
               />
             </div>       
           </div>
+          }
         </div>
         <div className='answer__header'>
           <h2>Answer from: {answer?.data.registration.user_name}</h2>
         </div>
+        {loading ? 
+          <div className='answerLoading'>
+            <Loading loading={loading}/>
+          </div>
+          :
         <div className='answer__content'>
           <Vote 
             route='answers'
@@ -62,6 +74,7 @@ function Answer() {
           />
           <p>{answer?.data.answer}</p>
         </div>
+        }
       </div>
     </div>
   )

@@ -32,3 +32,29 @@
   background-color: #DDDDDD;
   border-color: #5c5d5e;
 }
+
+.topics__list:hover{
+  animation: scroll 15s;
+}
+
+@keyframes scroll { 
+    
+  0% {
+  transform: translateX(0px);
+}
+  20% {
+  transform: translateX(calc(-15%));
+}
+  40% {
+  transform: translateX(calc(-35%));
+}
+  60% {
+  transform: translateX(calc(-55%));
+}
+  80% {
+  transform: translateX(calc(400px - 100%));
+}
+  100% {
+  transform: translateX(0px);
+}
+}

@@ -6,6 +6,7 @@ import Menu from '../Menu/Menu';
 import axios from 'axios';
 import evanLogo from '../../Assets/evanLogo.jpg';
 import { LuMenu } from "react-icons/lu";
+import userIcon from '../../Assets/userIcon.png';
 
 
 function Header() {
@@ -82,7 +83,10 @@ function Header() {
           <Link to='/'>
             Home
           </Link>
-          {!show ? <p>How it Works</p> : ''}
+          {!show ? <p>
+            <Link to='/askQuestion'>
+              How it Works</Link>
+            </p> : ''}
           {!userData.user ? (
             <Link to='/login'>
               <button>SIGN IN</button>
@@ -95,7 +99,7 @@ function Header() {
             >
               {show ? <LuMenu className='menuIcon' fontSize='larger' /> : (
                 <img
-                  src={profilePicture || 'https://static.vecteezy.com/system/resources/previews/010/056/184/original/people-icon-sign-symbol-design-free-png.png'}
+                  src={profilePicture || userIcon}
                   alt='profile icon'
                 />
               )}

@@ -87,7 +87,7 @@
 
 .login__form a {
   color: #FE8402;
-  margin-bottom: 70px;
+  /* margin-bottom: 70px; */
   text-decoration: none;
 }
 
@@ -122,4 +122,13 @@
 
 .about__button:hover{
   background-color: #DA7000;
+}
+
+.login__guest{
+  color: #2D358E;
+}
+
+.login__guest:hover{
+  cursor: pointer;
+  font-weight: bold;
 }

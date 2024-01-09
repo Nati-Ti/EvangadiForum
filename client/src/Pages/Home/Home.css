@@ -124,6 +124,15 @@
   margin-bottom: 10px;
 }
 
+.circular__progress{
+  /* height: 100px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  /* margin: 20px 0px; */
+}
+
 
 
 .fade-item {
@@ -144,3 +153,4 @@
       opacity: 1;
   }
 }
+

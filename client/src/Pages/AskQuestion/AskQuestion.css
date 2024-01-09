@@ -92,3 +92,8 @@
   cursor: pointer;
   background-color: #FE8402;
 }
+
+.fa {
+  margin-left: -12px;
+  margin-right: 8px;
+}

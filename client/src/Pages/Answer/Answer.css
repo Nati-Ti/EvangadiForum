@@ -56,3 +56,10 @@
   line-height: 1.5;
   margin: 5px 0px 10px 30px;
 }
+
+.answerLoading{
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

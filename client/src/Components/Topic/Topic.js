@@ -3,7 +3,7 @@ import './Topic.css';
 
 function Topic({ onDataChange }) {
   const topics = [
-    'All', 'React', 'Node', 'Express', 'HTML', 'CSS', 'MySql', 'Bootstrap', 'JQuery', 'Javascript', 'Node', 'Express', 'HTML'
+    'All', 'React', 'Node', 'Typescript', 'Next', 'Tailwind', 'Git', 'MongoDB', 'CSS', 'MySql', 'Bootstrap', 'JQuery', 'Javascript', 'RESTful', 'ES6+', 'HTML', 'Express', 'C#', 'Firebase', 'SASS'
   ];
 
   const [selectedTopic, setSelectedTopic] = useState(null);

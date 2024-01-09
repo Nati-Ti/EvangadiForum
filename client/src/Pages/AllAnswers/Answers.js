@@ -7,6 +7,7 @@ import { UserContext } from '../../Context/UserContext';
 import Vote from '../../Components/Vote/Vote';
 import TimeLapsed from '../../Components/TimeLapsed/TimeLapsed';
 import EditQuestion from '../../Components/EditQuestion/EditQuestion';
+import Loading from '../../Components/Loading/Loading';
 
 function Answers() {
 
@@ -22,6 +23,9 @@ function Answers() {
   const [answers, setAnswers] = useState([]);
   const [questionInfo, setQuestionInfo] = useState([]);
   
+  const [ display, setDisplay ] = useState(false);
+  const [ answerCount, setAnswerCount ] = useState(0);
+  
   const [answer, setAnswer] = useState({});
   const navigate = useNavigate();
 
@@ -30,17 +34,21 @@ function Answers() {
 
   const [editSection, setEditSection] = useState(false);
   const [reloadCount, setReloadCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [loadingBtn, setLoadingBtn] = useState(false);
 
   async function fetchQuestionInfo() {
     try {
       const response = await axios.get(`http://localhost:4000/api/questions/questionInfo?questionId=${questionId}`);
       setQuestionInfo(response.data);
+      setLoading(false);
     } catch (error) {
       console.log('Error fetching question info:', error);
     }
   }
 
   useEffect(() => {
+    setLoading(true);
     fetchQuestionInfo();
   }, [reloadCount,questionId]);
 
@@ -56,21 +64,17 @@ function Answers() {
     checkUserQuestion();
   }, [questionInfo, userId]);
 
+  async function fetchAnswers () {
+    await axios.get(`http://localhost:4000/api/answers/getAllAnswers?questionId=${questionId}`)
+      .then((res) => {setAnswers(res.data)})
+      .catch((err) => {
+        console.log('problem ==>', err.response.data.msg);
+      });
+    setDisplay(false);
+  }
   useEffect(() => {
-    async function fetchAnswers () {
-      await axios.get(`http://localhost:4000/api/answers/getAllAnswers?questionId=${questionId}`)
-        .then((res) => {setAnswers(res.data)})
-        .catch((err) => {
-          console.log('problem ==>', err.response.data.msg);
-        });
-    }
-
     fetchAnswers();
   }, [questionId]);
-
-  const handleReload = () => {
-    window.location.reload();
-  };
 
   const handleChange = (e) => {
     setAnswer({ ...answer, userId: userData.user.id, questId: questionId, [e.target.name]: e.target.value });
@@ -78,20 +82,16 @@ function Answers() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoadingBtn(true);
 
-    axios.post('http://localhost:4000/api/answers/postAnswer', answer).then(() => handleReload());
-
-    
-    // navigate(`/question/allanswers?questId=${questionId}`);
+    axios.post('http://localhost:4000/api/answers/postAnswer', answer)
+    .then(() => setLoadingBtn(false))
+    .then(() => fetchAnswers());
   }
-
-  const [ display, setDisplay ] = useState(false);
 
   const handleDisplay = () =>{
     setDisplay(!display);
   }
-
-  const [ answerCount, setAnswerCount ] = useState(0);
 
   useEffect(() => {
     const fetchAnswerCount = async () => {
@@ -139,6 +139,11 @@ function Answers() {
           reloadCountHandler={handleReloadCount} />}
 
         </div>
+        {loading ? 
+        <div className='questionLoading'>
+          <Loading loading={loading}/>
+        </div> 
+        : 
         <div className='voteQuestion__wrapper'>
           <div className='vote__wrap'>
             <Vote 
@@ -163,7 +168,7 @@ function Answers() {
           
           
         </div>
-
+        }
         {!userQuestion ? 
           "" : 
           <div className='questionOperations'>
@@ -185,7 +190,15 @@ function Answers() {
             name="answer"
             onChange={handleChange}
             placeholder="Your Answer..."/>
-        <button className='answer__post'>Post Your Answer</button>
+        <button className='answer__post'>
+        {loadingBtn ? (
+          <div>
+            <i className="fa fa-spinner fa-spin"></i>Loading
+          </div>
+        ) : (
+          <div>Post Your Answer</div>
+        )}
+        </button>
       </form>
       
       <div className='previous__answers'>

@@ -6,23 +6,40 @@ import './Login.css'
 // import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const Login = () => {
+
     const [userData, setUserData] = useContext(UserContext);
     const navigate = useNavigate();
     const [form, setForm] = useState({});
+
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
-		const handleSignOut = () =>{
-			setUserData({
-				token: '',
-				user: ''
-		});
-		}
+		const handleGuestSignIn = async () => {
+			
+			try {
+				const loginRes = await axios.post('http://localhost:4000/api/users/login',
+						{
+								email: 'guest@gmail.com',
+								password: '12345678'
+						});
+				
+				//update global state with response from backend(user-info)
+				setUserData({
+						token: loginRes.data.token,
+						user: loginRes.data.user
+				});
 
-		const handleSignup = () => {
-			navigate('/signup');
-		};
+				//set localStorage with the token
+				localStorage.setItem('auth-token', loginRes.data.token);
+
+				//navigate user to homepage
+				navigate('/');
+		} catch (err) {
+				console.log('problem', err.response.data.msg);
+				alert(err.response.data.msg);
+		}
+		}
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -87,6 +104,7 @@ const Login = () => {
 						<button><strong>Submit</strong></button>
 				</form>
 				<Link to="/signup">Create an account?</Link>
+				<p onClick={handleGuestSignIn} className='login__guest'>Continue as a Guest</p>
 			</div>
 
 			<div className='login__about'>

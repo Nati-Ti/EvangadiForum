@@ -200,3 +200,16 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.questionLoading{
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-top: 0px; */
+}
+
+.fa {
+  margin-left: -12px;
+  margin-right: 8px;
+}

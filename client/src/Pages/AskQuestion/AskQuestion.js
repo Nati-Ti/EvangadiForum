@@ -8,6 +8,7 @@ function AskQuestion() {
 
   const [questionForm, setQuestionForm] = useState({});
   const [userData, setUserData] = useContext(UserContext);
+  const [loadingBtn, setLoadingBtn] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -57,7 +58,15 @@ function AskQuestion() {
                 onChange={handleChange}
                 placeholder="Question Descripition..."/><br />
 
-            <button className="question__post">Post Your Question</button>
+            <button className="question__post">
+            {loadingBtn ? (
+              <div>
+                <i className="fa fa-spinner fa-spin"></i>Loading
+              </div>
+            ) : (
+              <div>Post Your Question</div>
+            )}
+            </button>
           </form>
         </div>
       </div>

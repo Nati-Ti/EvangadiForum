@@ -7,6 +7,7 @@ import Topic from '../../Components/Topic/Topic';
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 import { Zoom } from 'react-reveal';
+import Loading from '../../Components/Loading/Loading';
 // import { Fade, Zoom } from 'react-reveal';
 
 
@@ -21,11 +22,13 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalNumQues, setTotalNumQues] = useState(0);
   const [numPages, setNumPages] = useState(1);
+  const [loading, setLoading] = useState(false);
   
-  const limit = 2;
+  const limit = 15;
   const offset = ((currentPage*limit)-limit);
 
   useEffect(() => {
+    setLoading(true);
     const fetchTotalNumQuest = () => {
     axios.get(`http://localhost:4000/api/questions/total`)
       .then((res) => {
@@ -42,16 +45,19 @@ const Home = () => {
     setNumPages(Math.ceil(totalNumQues/limit));
   }, [totalNumQues]);
 
+
+  async function fetchQuestions() {
+    await axios.get(`http://localhost:4000/api/questions?limit=${limit}&offset=${offset}`)
+      .then((res) => {
+        setQuestions(res.data.data); 
+        setFilteredQuestions(res.data.data);
+        setLoading(false);})
+      .catch((err) => {
+        console.log('problem ==>', err.response.msg);
+      });
+  }
   useEffect(() => {
-    async function fetchQuestions() {
-      await axios.get(`http://localhost:4000/api/questions?limit=${limit}&offset=${offset}`)
-        .then((res) => {
-          setQuestions(res.data.data); 
-          setFilteredQuestions(res.data.data);})
-        .catch((err) => {
-          console.log('problem ==>', err.response.msg);
-        });
-    }
+    setLoading(true);
     fetchQuestions();
   }, [currentPage]);
 
@@ -87,21 +93,6 @@ const Home = () => {
     setCurrentPage((prev) => page);
     // console.log(currentPage)
   }
-
-  useEffect(() => {
-    const items = document.getElementsByClassName('fade-item');
-
-    const fadeIn = (item, delay) => {
-      setTimeout(() => {
-        item.classList.add('fadein');
-      }, delay);
-    };
-
-    for (let i = 0; i < items.length; ++i) {
-      fadeIn(items[i], i * 1000);
-    }
-  }, []);
-
   
   return (
     <div className='Home'>
@@ -118,6 +109,7 @@ const Home = () => {
         </div>
         <h2 className='welcome__user'>Welcome: {userData.user?.display_name}</h2>
       </div>
+      
       <div className='questionsAsked'>
 
         <div className='questions__header'>
@@ -126,13 +118,16 @@ const Home = () => {
           <Topic onDataChange={handleDataChange} />
           </div>
         </div>
-        
+        {loading ? 
+        <div className="circular__progress">
+          <Loading loading={loading}/>
+        </div>
+        :
         <div className='questions__list'>
           {!noMatch ?
           filteredQuestions.map((ques) => (
             <Zoom key={ques.question_id}>
               <Question
-                className='fade-item'
                 title={ques.question_title}
                 description={ques.question_description}
                 userId={ques.registration.user_id}
@@ -149,9 +144,11 @@ const Home = () => {
             }
 
         </div>
-        
+        }
         {/* <div>No Question Asked!</div> */}
       </div>
+      
+      
 
       <div className='pagination'>
         <Pagination onChange={handlePageChange} count={numPages} color="primary" />

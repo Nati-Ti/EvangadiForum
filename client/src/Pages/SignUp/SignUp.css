@@ -87,6 +87,7 @@
 }
 
 .signup__submit:hover{
+  cursor: pointer;
   background-color: #FE8402;
 }
 
